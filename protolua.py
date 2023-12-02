@@ -33,6 +33,9 @@ WASM_PATH = os.path.join(PROTOLUA_PATH, "build", "protolua.wasm")
 TEMPLATE_PATH = os.path.join(PROTOLUA_PATH, "lua_template")
 TYPING_PATH = os.path.join(PROTOLUA_PATH, "lua_typing")
 
+PROTOLOGIC_PATH = os.path.join(TOOLS_PATH, "protologic")
+PROTOLOGIC_UPDATEDAT_PATH = os.path.join(PROTOLOGIC_PATH, "updatedat.txt")
+
 def get_bin_path(bin_name: str, tools_path: "list[str]"):
 	path = os.path.join(TOOLS_PATH, *tools_path, bin_name)
 	if os.path.exists(path):
@@ -124,22 +127,33 @@ def ensure_tool(owner: str, repo: str, os_map: "dict[str, str]"):
 
 
 def update_protologic():
+	out_zip = os.path.join(TOOLS_PATH, "protologic.zip")
+	
 	try:
-		if PROTOLOGIC_SIM_BIN is not None:
-			local_updated = datetime.utcfromtimestamp(os.path.getmtime(PROTOLOGIC_SIM_BIN))
-			repo_request = requests.get(PROTOLOGIC_REPO_API)
-			repo_request.raise_for_status()
-			repo_updated = datetime.fromisoformat(repo_request.json()["pushed_at"][:-1])
-			if local_updated > repo_updated:
-				print("Protologic update not found.")
-				return
-		out_zip = os.path.join(TOOLS_PATH, "protologic.zip")
+		repo_request = requests.get(PROTOLOGIC_REPO_API)
+		repo_request.raise_for_status()
+		pushed_at = repo_request.json()["pushed_at"]
+
+		if os.path.exists(PROTOLOGIC_UPDATEDAT_PATH):
+			with open(PROTOLOGIC_UPDATEDAT_PATH, "r") as f:
+				if f.read() == pushed_at:
+					print("No protologic sim & player update found.")
+					return
+				else:
+					print("Found protologic update.")
+
 		download(PROTOLOGIC_ZIP, out_zip)
-		extract_archive(out_zip, os.path.join(TOOLS_PATH, "protologic"))
+		extract_archive(out_zip, PROTOLOGIC_PATH)
 		os.remove(out_zip)
+		with open(PROTOLOGIC_UPDATEDAT_PATH, "w") as f:
+			f.write(pushed_at)
 	except Exception as e:
 		traceback.print_exc()
-		print("Failed to download & extract protologic sim & player. (Skipped)")
+		print("Failed to download & extract protologic sim & player. (Skipped)", file=sys.stderr)
+
+
+def update_protolua():
+	print("Updating protolua is not yet implemented.", file=sys.stderr)
 
 
 def file_replace_content(file: str, subs: "dict[str, str]"):
@@ -252,7 +266,6 @@ if __name__ == "__main__":
 		description="ProtoLua command-line tool."
 	)
 	args_parser.add_argument("--no-tools", action="store_true", help="Do not download tools if they are missing")
-	args_parser.add_argument("--update", action="store_true", help="Update protologic (not other tools)")
 	args_parser_actions = args_parser.add_subparsers(dest="action", required=True)
 
 	args_parser_create = args_parser_actions.add_parser("create", help="Create new protolua project.")
@@ -266,17 +279,24 @@ if __name__ == "__main__":
 	args_parser_build.add_argument("--sim", action="store_true", help="After building, run the sim.")
 	args_parser_build.add_argument("--play", action="store_true", help="After building, run the player.")
 
+	args_parser_update = args_parser_actions.add_parser("update", help="Update protolua & protologic.")
+
 
 	args = args_parser.parse_args()
 
 	if not args.no_tools:
 		ensure_tool("WebAssembly", "binaryen", {"Windows": "x86_64-windows", "Linux": "x86_64-linux"})
 		ensure_tool("bytecodealliance", "wizer", {"Windows": "x86_64-windows", "Linux": "x86_64-linux"})
-	if args.update or PROTOLOGIC_SIM_BIN is None:
-		print("~ Downloading protologic sim & player.", "(because sim was not found)" if PROTOLOGIC_SIM_BIN is None else "(requested update check)")
+	if PROTOLOGIC_SIM_BIN is None and args.action != "update":
+		print("~ Downloading protologic sim & player. (sim binary was not found)")
 		update_protologic()
 
-	if args.action == "create":
+	if args.action == "update":
+		print("~ Updating protologic sim & player.")
+		update_protologic()
+		print("~ Updating protolua.")
+		update_protolua()
+	elif args.action == "create":
 		protolua_project_create(args.name, args.delete)
 	elif args.action == "build":
 		ship_wasm = args.out if args.out else "ship.wasm"

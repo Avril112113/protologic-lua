@@ -214,7 +214,7 @@ def protolua_project_create(name: str, replace=False):
 			exit(-1)
 	shutil.copytree(TEMPLATE_PATH, name)
 	file_replace_content(os.path.join(name, ".vscode", "settings.json"), {
-		"$PROTOLUA_TYPING_PATH": TYPING_PATH,
+		"$PROTOLUA_TYPING_PATH": TYPING_PATH.replace("\\", "\\\\"),
 	})
 	print(f"Project created '{name}'")
 

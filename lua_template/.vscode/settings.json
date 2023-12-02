@@ -1,0 +1,6 @@
+{
+	"Lua.runtime.version": "Lua 5.4",
+	"Lua.workspace.library": [
+		"$PROTOLUA_TYPING_PATH"
+	]
+}

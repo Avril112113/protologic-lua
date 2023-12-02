@@ -1,0 +1,16 @@
+/build/**
+/dist/**
+/release/**
+
+# Downloaded by protolua.py
+/tools/**
+
+/test/**
+
+test.json.deflate
+
+# Used for local testing
+/lua/**
+sim.log
+ship.wasm
+ship.wat

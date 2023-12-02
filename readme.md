@@ -26,7 +26,7 @@ Optionally, add the directory to your PATH so you can access it easily.
 
 If on Linux, use `protolua` instead of `protolua.exe`.  
 
-When running `protolua.exe` with any action, it will automatically download needed tools from github.  
+When running `protolua.exe` with any action, it will automatically download [needed tools](#Automatically-downloaded-tools) from github.  
 To create a new project run `protolua.exe create myfleet`  
 To build the new project, enter the project directory and run `protolua.exe build`  
 To build, sim and preview your fleet, run `protolua.exe build --fast --sim --play`  
@@ -57,3 +57,11 @@ Lua errors are not handled as you might expect, `pcall` and `xpcall` do not reco
 This is a WASM limitation, without the ability to have support code in the host environment there is no way to properly implement `setjmp`/`longjmp`.  
 So, when `longjmp` does get called by Lua, it just aborts instead, then the error is printed at the begging of the next tick.  
 `coroutine`, `pcall` and `xpcall` are not accessible for the same reason, because `setjmp`/`longjmp`.  
+
+
+## Automatically downloaded tools
+Protolua will automatically download needed tools to build your fleet.  
+These are the following;  
+[WebAssembly/binaryen](https://github.com/WebAssembly/binaryen)  
+[bytecodealliance/wizer](https://github.com/bytecodealliance/wizer)  
+[Protologic/Release](https://github.com/Protologic/Release)  

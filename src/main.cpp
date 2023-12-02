@@ -35,8 +35,6 @@ WASM_EXPORT int main(int argc, char *argv[]) {}
 
 
 WASM_EXPORT void tick() {
-	InitConsts();  // TODO: Can we make this not need to be called?
-
 	if (state_error) {
 		state_error = false;
 		if (lua_isthread(state, -1)) {
@@ -54,6 +52,7 @@ WASM_EXPORT void tick() {
 	static bool HAS_RUN_INIT = false;
 	if (!HAS_RUN_INIT) {
 		HAS_RUN_INIT = true;
+		protolua_setup_api(state);
 		if (lua_getglobal(state, "init") != 0 && lua_isfunction(state, -1)) {
 			lua_pcall(state, 0, LUA_MULTRET, 0);
 		}

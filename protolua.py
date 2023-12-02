@@ -262,7 +262,7 @@ def protolua_project_build(out: str, optimization: int, wat=False):
 def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
 	print(f"~ Simulating {fleets} -> {replay_out} & {log}")
 	if PROTOLOGIC_SIM_BIN is None:
-		print("ProtoLogic sim not found (Is it supported on {OS}? try '--update')", file=sys.stderr)
+		print("ProtoLogic sim not found (Is it supported on {OS}? try 'update')", file=sys.stderr)
 		exit(-1)
 	log_f = open(log, "w")
 	p = Popen([
@@ -288,7 +288,7 @@ def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
 def protolua_play(replay_path: str):
 	print(f"~ Playing {replay_path}")
 	if PROTOLOGIC_PLAYER_BIN is None:
-		print("ProtoLogic player not found (Is it supported on {OS}? try '--update')", file=sys.stderr)
+		print("ProtoLogic player not found (Is it supported on {OS}? try 'update')", file=sys.stderr)
 		exit(-1)
 	if Popen([
 		PROTOLOGIC_PLAYER_BIN,

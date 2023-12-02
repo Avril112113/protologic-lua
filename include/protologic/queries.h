@@ -15,11 +15,15 @@ PL_IMPORT(ship_get_position_y, float);
 
 PL_IMPORT(ship_get_position_z, float);
 
+PL_IMPORT(ship_get_position_ptr, void, int32_t dst);
+
 PL_IMPORT(ship_get_velocity_x, float);
 
 PL_IMPORT(ship_get_velocity_y, float);
 
 PL_IMPORT(ship_get_velocity_z, float);
+
+PL_IMPORT(ship_get_velocity_ptr, void, int32_t dst);
 
 PL_IMPORT(ship_get_orientation_w, float);
 
@@ -29,11 +33,15 @@ PL_IMPORT(ship_get_orientation_y, float);
 
 PL_IMPORT(ship_get_orientation_z, float);
 
+PL_IMPORT(ship_get_orientation_ptr, void, int32_t dst);
+
 PL_IMPORT(ship_get_angularvelocity_x, float);
 
 PL_IMPORT(ship_get_angularvelocity_y, float);
 
 PL_IMPORT(ship_get_angularvelocity_z, float);
+
+PL_IMPORT(ship_get_angularvelocity_ptr, void, int32_t dst);
 
 PL_IMPORT(engine_get_fuel_amount, float);
 

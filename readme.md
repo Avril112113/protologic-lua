@@ -18,7 +18,7 @@ Code should still be system safe despite this, though there are no guarantees.
 ## Usage
 Only if you want to contribute to this tool, read the [Contribution](#Contribution) section.  
 
-There is a single release which has bineries for both Windows and Linux.  
+There is a single release which has binaries/executables for both Windows and Linux.  
 
 Download the latest release of the tool from [Releases](https://github.com/Avril112113/protologic-lua/releases).  
 Extract the `.zip`.  

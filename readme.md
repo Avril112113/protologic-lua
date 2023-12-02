@@ -32,8 +32,7 @@ To build the new project, enter the project directory and run `protolua.exe buil
 To build, sim and preview your fleet, run `protolua.exe build --fast --sim --play`  
 `--fast` makes the build faster, at the cost of a un-optimized wasm file.  
 
-**NOT IMPLEMENTED YET**  
-~~To check for updates for `protolua` or `protologic`, run `protolua.exe update`~~  
+To check for updates for `protolua` or `protologic`, run `protolua.exe update`  
 
 
 ## Contribution

@@ -6,6 +6,7 @@
 /tools/**
 
 /test/**
+/update_test/**
 
 test.json.deflate
 

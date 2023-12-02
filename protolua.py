@@ -17,6 +17,10 @@ from io import TextIOBase
 from typing import IO, TextIO
 
 
+# Must be in GH release name.
+VERSION = "0.1.1"
+
+
 # Some day this will probably change and need updating.
 PROTOLOGIC_ZIP = "https://github.com/Protologic/Release/archive/refs/heads/master.zip"
 PROTOLOGIC_REPO_API = "https://api.github.com/repos/Protologic/Release"
@@ -50,9 +54,15 @@ WASM_2_WAT_BIN = get_bin_path("wasm2wat", ["wabt", "bin"])
 PROTOLOGIC_SIM_BIN = get_bin_path("Protologic.Terminal", ["protologic", "Sim", OS])
 PROTOLOGIC_PLAYER_BIN = get_bin_path("SaturnsEnvy", ["protologic", "Player", OS])
 
+PROTOLUA_UPDATE_PATH = PROTOLUA_PATH
+if os.path.exists("./CMakeLists.txt"):
+	PROTOLUA_UPDATE_PATH = "update_test"
+	if not os.path.isdir(PROTOLUA_UPDATE_PATH):
+		os.mkdir(PROTOLUA_UPDATE_PATH)
 
-def get_gh_releases(owner: str, repo: str) -> "list[dict]":
-	response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/releases")
+
+def get_gh_releases(owner: str, repo: str, count=100, page=1) -> "list[dict]":
+	response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/releases?per_page={count}&page={page}")
 	response.raise_for_status()
 	return response.json()
 
@@ -65,27 +75,27 @@ def download(url: str, out: str):
 		f.write(data_request.content)
 
 
-def download_gh_release(owner, repo, asset_name: str, out_dir: str, os_map: "dict[str, str]"):
-	if OS not in os_map:
+def download_gh_release(owner, repo, asset_name: str, out_dir: str, os_map: "dict[str, str]"=None, prerelease=False) -> dict:
+	if os_map is not None and OS not in os_map:
 		print(f"Failed to find asset for '{owner}/{repo}' with name '{asset_name}' and '{os_map[OS]}' (OS not supported)", file=sys.stderr)
 		exit(-1)
 	release = next(
 		(
-			release for release in get_gh_releases(owner, repo)
-				if not release["prerelease"]
-			),
+			release for release in get_gh_releases(owner, repo, count=5)
+				if prerelease or not release["prerelease"]
+		),
 		None
-		)
+	)
 	if release is None:
 		print(f"Failed to find release for '{owner}/{repo}'", file=sys.stderr)
 		exit(-1)
 	asset = next(
 		(
 			asset for asset in release["assets"]
-				if asset_name in asset["name"] and os_map[OS] in asset["name"] and "sha256" not in asset["name"]
-			),
+				if (asset_name is None or asset_name in asset["name"]) and (os_map is None or os_map[OS] in asset["name"]) and "sha256" not in asset["name"]
+		),
 		None
-		)
+	)
 	if asset is None:
 		print(f"Failed to find asset for '{owner}/{repo}' with name '{asset_name}' and '{os_map[OS]}'", file=sys.stderr)
 		exit(-1)
@@ -93,15 +103,24 @@ def download_gh_release(owner, repo, asset_name: str, out_dir: str, os_map: "dic
 	return asset
 
 
-def extract_archive(file: str, out: str):
+def extract_archive(file: str, out: str) -> "list[str]":
 	print(f"Extracting {file}")
-	if os.path.isdir(out):
+	root_extracted = []
+	if out not in file and os.path.isdir(out):
 		shutil.rmtree(out)
 	if file.endswith(".zip"):
 		with zipfile.ZipFile(file, "r") as zip:
+			for member in zip.filelist:
+				root_dir = member.filename[:member.filename.find("/")]
+				if root_dir not in root_extracted:
+					root_extracted.append(root_dir)
 			zip.extractall(out)
 	elif ".tar" in file:
 		with tarfile.open(file, "r:*") as tar:
+			for member in tar.getmembers():
+				root_dir = member.name[:member.name.find("/")]
+				if root_dir not in root_extracted:
+					root_extracted.append(root_dir)
 			tar.extractall(out)
 	else:
 		print(f"Unknown archive file format {file}", file=sys.stderr)
@@ -112,6 +131,7 @@ def extract_archive(file: str, out: str):
 		for filename in os.listdir(old_dir):
 			shutil.move(os.path.join(old_dir, filename), out)
 		os.rmdir(old_dir)
+	return root_extracted
 
 
 def ensure_tool(owner: str, repo: str, os_map: "dict[str, str]"):
@@ -121,8 +141,9 @@ def ensure_tool(owner: str, repo: str, os_map: "dict[str, str]"):
 	path = os.path.join(TOOLS_PATH, repo)
 	if not os.path.isdir(path):
 		asset = download_gh_release(owner, repo, repo, TOOLS_PATH, os_map)
-		extract_archive(os.path.join(TOOLS_PATH, asset["name"]), path)
-		os.remove(os.path.join(TOOLS_PATH, asset["name"]))
+		archive_path = os.path.join(TOOLS_PATH, asset["name"])
+		extract_archive(archive_path, path)
+		os.remove(archive_path)
 	return path
 
 
@@ -153,7 +174,23 @@ def update_protologic():
 
 
 def update_protolua():
-	print("Updating protolua is not yet implemented.", file=sys.stderr)
+	release = get_gh_releases("Avril112113", "protologic-lua", count=1)[0]
+	if VERSION in release["name"]:
+		print("No protolua update found.")
+		return
+	# Due to the protologic binary clashing with the directory name of the update, we need another folder...
+	tmp_path = os.path.join(PROTOLUA_UPDATE_PATH, "update")
+	if os.path.exists(tmp_path):
+		shutil.rmtree(tmp_path)
+	os.mkdir(tmp_path)
+	asset = download_gh_release("Avril112113", "protologic-lua", None, tmp_path, prerelease=True)
+	archive_path = os.path.join(tmp_path, asset["name"])
+	dir = extract_archive(archive_path, tmp_path)[0]
+	os.remove(archive_path)
+	src_path = os.path.abspath(os.path.join(tmp_path, dir))
+	dst_path = os.path.abspath(PROTOLUA_UPDATE_PATH)
+	print(f"!! Auto-update feature is currently limited.\nPlease manually copy the contents of\n     '{src_path}'\ninto '{dst_path}'")
+	# TODO: Automatically move contents of src_path -> dst_path
 
 
 def file_replace_content(file: str, subs: "dict[str, str]"):
@@ -268,6 +305,8 @@ if __name__ == "__main__":
 	args_parser.add_argument("--no-tools", action="store_true", help="Do not download tools if they are missing")
 	args_parser_actions = args_parser.add_subparsers(dest="action", required=True)
 
+	args_parser_create = args_parser_actions.add_parser("version", help="Gets the current version of protolua.")
+
 	args_parser_create = args_parser_actions.add_parser("create", help="Create new protolua project.")
 	args_parser_create.add_argument("name")
 	args_parser_create.add_argument("--delete", action="store_true", help=argparse.SUPPRESS)
@@ -291,7 +330,9 @@ if __name__ == "__main__":
 		print("~ Downloading protologic sim & player. (sim binary was not found)")
 		update_protologic()
 
-	if args.action == "update":
+	if args.action == "version":
+		print(f"protolua version: {VERSION}")
+	elif args.action == "update":
 		print("~ Updating protologic sim & player.")
 		update_protologic()
 		print("~ Updating protolua.")

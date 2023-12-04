@@ -6,8 +6,7 @@
 	],
 	"C_Cpp.default.defines": [
 		"_WASI_EMULATED_SIGNAL",
-		"_WASI_EMULATED_PROCESS_CLOCKS",
-		"LUA_USE_C89"
+		"_WASI_EMULATED_PROCESS_CLOCKS"
 	],
 	"C_Cpp.default.compilerPath": "/home/dude/wasi-sdk-20.0/bin/clang++"
 }

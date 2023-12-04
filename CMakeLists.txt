@@ -12,7 +12,6 @@ add_link_options(-fno-exceptions)
 # These defines are probably not needed.
 add_compile_definitions(_WASI_EMULATED_SIGNAL)
 add_compile_definitions(_WASI_EMULATED_PROCESS_CLOCKS)
-add_compile_definitions(LUA_USE_C89)
 add_compile_definitions(L_tmpnam=260)
 add_subdirectory("./lib/lua")
 

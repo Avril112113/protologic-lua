@@ -4,7 +4,6 @@ project(lua)
 
 add_compile_definitions(_WASI_EMULATED_SIGNAL)
 add_compile_definitions(_WASI_EMULATED_PROCESS_CLOCKS)
-add_compile_definitions(LUA_USE_C89)
 add_compile_definitions(L_tmpnam=260)
 
 # From https://github.com/walterschell/src/blob/master/lua-5.4.6/CMakeLists.txt

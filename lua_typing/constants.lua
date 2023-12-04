@@ -1,7 +1,8 @@
--- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.1 --
----@meta
 
+
+-- DO NOT MODIFY, THIS FILE IS GENERATED --
+-- VERSION 0.0.2 --
+---@meta
 
 ---@class ProtoLogic
 ---@field const_get_fueldensity fun(): number

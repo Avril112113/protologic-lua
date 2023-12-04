@@ -23,7 +23,7 @@ include_directories("./include/lua-5.4.6")
 
 include_directories("./lib/fill")
 
-file(GLOB SOURCES src/*.c src/*.cpp lua_c/*.cpp)
+file(GLOB_RECURSE SOURCES src/*.c src/*.cpp lua_c/*.cpp)
 
 set(CMAKE_EXECUTABLE_SUFFIX ".wasm")
 add_executable(protolua ${SOURCES})

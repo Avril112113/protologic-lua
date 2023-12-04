@@ -1,8 +1,8 @@
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.1 --
+-- VERSION 0.0.2 --
 ---@meta
 
--- Provided by Cpp/lua_consts.cpp
+-- Consts set by Cpp/constants_vars.cpp
 
 
 ---@type number
@@ -91,3 +91,4 @@ SHIPMINCPUFUEL = nil
 
 ---@type number
 SHIPPERTICKCPUFUEL = nil
+

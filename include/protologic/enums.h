@@ -44,32 +44,32 @@ enum TrapCode {
 const inline char* TrapCodeToString(enum TrapCode code) {
     switch (code)
     {
-    case Undefined:
-        return "Undefined";
-    case StackOverflow:
-        return "StackOverflow";
-    case MemoryOutOfBounds:
-        return "MemoryOutOfBounds";
-    case HeapMisaligned:
-        return "HeapMisaligned";
-    case TableOutOfBounds:
-        return "TableOutOfBounds";
-    case IndirectCallToNull:
-        return "IndirectCallToNull";
-    case BadSignature:
-        return "BadSignature";
-    case IntegerOverflow:
-        return "IntegerOverflow";
-    case IntegerDivisionByZero:
-        return "IntegerDivisionByZero";
-    case BadConversionToInteger:
-        return "BadConversionToInteger";
-    case Interrupt:
-        return "Interrupt";
-    case OutOfFuel:
-        return "OutOfFuel";
-    default:
-        return "?";
+        case Undefined:
+            return "Undefined";
+        case StackOverflow:
+            return "StackOverflow";
+        case MemoryOutOfBounds:
+            return "MemoryOutOfBounds";
+        case HeapMisaligned:
+            return "HeapMisaligned";
+        case TableOutOfBounds:
+            return "TableOutOfBounds";
+        case IndirectCallToNull:
+            return "IndirectCallToNull";
+        case BadSignature:
+            return "BadSignature";
+        case IntegerOverflow:
+            return "IntegerOverflow";
+        case IntegerDivisionByZero:
+            return "IntegerDivisionByZero";
+        case BadConversionToInteger:
+            return "BadConversionToInteger";
+        case Interrupt:
+            return "Interrupt";
+        case OutOfFuel:
+            return "OutOfFuel";
+        default:
+            return "?";
     }
 }
 
@@ -84,17 +84,17 @@ enum TargetType {
 const inline char* TargetTypeToString(enum TargetType type) {
     switch (type)
     {
-    case SpaceBattleShip:
-        return "SpaceBattleShip";
-    case SpaceHulk:
-        return "SpaceHulk";
-    case Missile:
-        return "Missile";
-    case Shell:
-        return "Shell";
-    case Asteroid:
-        return "Asteroid";
-    default:
-        return "Unknown";
+        case SpaceBattleShip:
+            return "SpaceBattleShip";
+        case SpaceHulk:
+            return "SpaceHulk";
+        case Missile:
+            return "Missile";
+        case Shell:
+            return "Shell";
+        case Asteroid:
+            return "Asteroid";
+        default:
+            return "Unknown";
     }
 }

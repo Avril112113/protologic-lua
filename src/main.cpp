@@ -31,10 +31,10 @@ static void init() {
 WIZER_INIT(init);
 
 
-WASM_EXPORT int main(int argc, char *argv[]) {}
+extern "C" int main(int argc, char *argv[]) {}
 
 
-WASM_EXPORT void tick() {
+extern "C" void tick() {
 	if (state_error) {
 		state_error = false;
 		if (lua_isthread(state, -1)) {
@@ -71,7 +71,7 @@ WASM_EXPORT void tick() {
 	lua_pop(state, lua_gettop(state));  // Clear stack of any return values.
 }
 
-WASM_EXPORT void trap_handler(TrapCode trap_code) {
+extern "C" void trap_handler(TrapCode trap_code) {
 	fflush(stdout);
 	if (trap_code == TrapCode::Unreachable && (get_longjmp_env() != NULL || get_longjmp_status() != 0)) {
 		debug("A Lua error occurred! These are not properly supported, expect strange behaviour.");

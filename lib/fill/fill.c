@@ -27,10 +27,7 @@ clock_t clock() {
     return now - start;
 }
 
-// Stop the editor from complaining
-#if _WASM_
-__attribute__((constructor(10)))
-#endif
+__attribute__((constructor))
 static void init(void) {
     (void)__wasi_clock_time_get(__WASI_CLOCKID_MONOTONIC, 0, &start);
 }

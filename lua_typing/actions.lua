@@ -1,13 +1,15 @@
--- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.1 --
----@meta
---- All functions related to "doing" stuff.
 
+
+-- DO NOT MODIFY, THIS FILE IS GENERATED --
+-- VERSION 0.0.2 --
+---@meta
+-- All functions related to "doing" stuff.
 
 ---@class ProtoLogic
 ---@field ship_self_destruct fun(): nil
 ---@field engine_set_throttle fun(throttle: number): nil
---- Set the torque for the ship to rotate. ---@field wheel_set_torque fun(x: number, y: number, z: number): nil
+--- Set the torque for the ship to rotate.
+---@field wheel_set_torque fun(x: number, y: number, z: number): nil
 ---@field runninglight_set_state fun(state: number): nil
 ---@field radar_set_angle fun(angle: number): nil
 ---@field radar_set_bearing fun(bearing: number): nil

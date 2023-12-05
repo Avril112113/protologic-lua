@@ -2,6 +2,7 @@
 
 import os
 import re
+import stat
 import sys
 import shutil
 import tarfile
@@ -164,13 +165,22 @@ def update_protologic():
 					print("Found protologic update.")
 
 		download(PROTOLOGIC_ZIP, out_zip)
+		if os.path.exists(PROTOLOGIC_PATH):
+			shutil.rmtree(PROTOLOGIC_PATH)
 		extract_archive(out_zip, PROTOLOGIC_PATH)
 		os.remove(out_zip)
 		with open(PROTOLOGIC_UPDATEDAT_PATH, "w") as f:
 			f.write(pushed_at)
+		if OS != "Windows":
+			PROTOLOGIC_SIM_BIN = get_bin_path("Protologic.Terminal", ["protologic", "Sim", OS])
+			if PROTOLOGIC_SIM_BIN is not None:
+				os.chmod(PROTOLOGIC_SIM_BIN, os.stat(PROTOLOGIC_SIM_BIN).st_mode | stat.S_IEXEC)
+			PROTOLOGIC_PLAYER_BIN = get_bin_path("SaturnsEnvy", ["protologic", "Player", OS])
+			if PROTOLOGIC_PLAYER_BIN is not None:
+				os.chmod(PROTOLOGIC_PLAYER_BIN, os.stat(PROTOLOGIC_PLAYER_BIN).st_mode | stat.S_IEXEC)
 	except Exception as e:
 		traceback.print_exc()
-		print("Failed to download & extract protologic sim & player. (Skipped)", file=sys.stderr)
+		print("Failed to download & extract protologic sim & player.", file=sys.stderr)
 
 
 def update_protolua():
@@ -262,7 +272,7 @@ def protolua_project_build(out: str, optimization: int, wat=False):
 def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
 	print(f"~ Simulating {fleets} -> {replay_out} & {log}")
 	if PROTOLOGIC_SIM_BIN is None:
-		print("ProtoLogic sim not found (Is it supported on {OS}? try 'update')", file=sys.stderr)
+		print("ProtoLogic sim not found (Is it supported on {OS}? try 'protolua update')", file=sys.stderr)
 		exit(-1)
 	log_f = open(log, "w")
 	p = Popen([

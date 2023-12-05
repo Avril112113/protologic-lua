@@ -326,6 +326,32 @@ static int lua_protologiclib_gun3_trigger(lua_State* state) {
 	return 0;
 }
 
+static int lua_protologiclib_debug_sphere_set(lua_State* state) {
+	float arg_x = luaL_checknumber(state, 1);
+	float arg_y = luaL_checknumber(state, 2);
+	float arg_z = luaL_checknumber(state, 3);
+	float arg_radius = luaL_checknumber(state, 4);
+	float arg_r = luaL_checknumber(state, 5);
+	float arg_g = luaL_checknumber(state, 6);
+	float arg_b = luaL_checknumber(state, 7);
+	debug_sphere_set(arg_x, arg_y, arg_z, arg_radius, arg_r, arg_g, arg_b);
+	return 0;
+}
+
+static int lua_protologiclib_debug_line_set(lua_State* state) {
+	float arg_x1 = luaL_checknumber(state, 1);
+	float arg_y1 = luaL_checknumber(state, 2);
+	float arg_z1 = luaL_checknumber(state, 3);
+	float arg_x2 = luaL_checknumber(state, 4);
+	float arg_y2 = luaL_checknumber(state, 5);
+	float arg_z2 = luaL_checknumber(state, 6);
+	float arg_r = luaL_checknumber(state, 7);
+	float arg_g = luaL_checknumber(state, 8);
+	float arg_b = luaL_checknumber(state, 9);
+	debug_line_set(arg_x1, arg_y1, arg_z1, arg_x2, arg_y2, arg_z2, arg_r, arg_g, arg_b);
+	return 0;
+}
+
 // queries //
 
 static int lua_protologiclib_cpu_get_fuel(lua_State* state) {
@@ -588,6 +614,8 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"gun3_set_elevation", lua_protologiclib_gun3_set_elevation},
 	{"gun3_set_fuse", lua_protologiclib_gun3_set_fuse},
 	{"gun3_trigger", lua_protologiclib_gun3_trigger},
+	{"debug_sphere_set", lua_protologiclib_debug_sphere_set},
+	{"debug_line_set", lua_protologiclib_debug_line_set},
 	// {{ group.name }} //
 	{"cpu_get_fuel", lua_protologiclib_cpu_get_fuel},
 	{"ship_get_position_x", lua_protologiclib_ship_get_position_x},

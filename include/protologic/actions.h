@@ -60,3 +60,7 @@ WASM_IMPORT("protologic", "gun3_set_fuse", gun3_set_fuse, void, float fuse);
 
 WASM_IMPORT("protologic", "gun3_trigger", gun3_trigger, void);
 
+WASM_IMPORT("protologic", "debug_sphere_set", debug_sphere_set, void, float x, float y, float z, float radius, float r, float g, float b);
+
+WASM_IMPORT("protologic", "debug_line_set", debug_line_set, void, float x1, float y1, float z1, float x2, float y2, float z2, float r, float g, float b);
+

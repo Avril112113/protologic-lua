@@ -171,11 +171,11 @@ def update_protologic():
 		os.remove(out_zip)
 		with open(PROTOLOGIC_UPDATEDAT_PATH, "w") as f:
 			f.write(pushed_at)
+		PROTOLOGIC_SIM_BIN = get_bin_path("Protologic.Terminal", ["protologic", "Sim", OS])
+		PROTOLOGIC_PLAYER_BIN = get_bin_path("SaturnsEnvy", ["protologic", "Player", OS])
 		if OS != "Windows":
-			PROTOLOGIC_SIM_BIN = get_bin_path("Protologic.Terminal", ["protologic", "Sim", OS])
 			if PROTOLOGIC_SIM_BIN is not None:
 				os.chmod(PROTOLOGIC_SIM_BIN, os.stat(PROTOLOGIC_SIM_BIN).st_mode | stat.S_IEXEC)
-			PROTOLOGIC_PLAYER_BIN = get_bin_path("SaturnsEnvy", ["protologic", "Player", OS])
 			if PROTOLOGIC_PLAYER_BIN is not None:
 				os.chmod(PROTOLOGIC_PLAYER_BIN, os.stat(PROTOLOGIC_PLAYER_BIN).st_mode | stat.S_IEXEC)
 	except Exception as e:

@@ -1,11 +1,14 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.0.2 //
+// VERSION 0.0.3 //
 
 // Generated lua library utilising the generated C bindings.
 
 #include "lua_protologic.hpp"
 
 #include "protologic/protologic.hpp"
+#include "protologic/Vector3.h"
+#include "protologic/Quaternion.h"
+#include "protologic/RadarTargetInfo.h"
 
 
 // constants //
@@ -378,6 +381,16 @@ static int lua_protologiclib_ship_get_position_z(lua_State* state) {
 	return 1;
 }
 
+static int lua_protologiclib_ship_get_position_ptr(lua_State* state) {
+	Vector3* arg_dst = new Vector3();
+	ship_get_position_ptr(arg_dst);
+	lua_pushnumber(state, arg_dst->x);
+	lua_pushnumber(state, arg_dst->y);
+	lua_pushnumber(state, arg_dst->z);
+	delete arg_dst;
+	return 3;
+}
+
 static int lua_protologiclib_ship_get_velocity_x(lua_State* state) {
 	float result = ship_get_velocity_x();
 	lua_pushnumber(state, result);
@@ -394,6 +407,16 @@ static int lua_protologiclib_ship_get_velocity_z(lua_State* state) {
 	float result = ship_get_velocity_z();
 	lua_pushnumber(state, result);
 	return 1;
+}
+
+static int lua_protologiclib_ship_get_velocity_ptr(lua_State* state) {
+	Vector3* arg_dst = new Vector3();
+	ship_get_velocity_ptr(arg_dst);
+	lua_pushnumber(state, arg_dst->x);
+	lua_pushnumber(state, arg_dst->y);
+	lua_pushnumber(state, arg_dst->z);
+	delete arg_dst;
+	return 3;
 }
 
 static int lua_protologiclib_ship_get_orientation_x(lua_State* state) {
@@ -420,6 +443,17 @@ static int lua_protologiclib_ship_get_orientation_w(lua_State* state) {
 	return 1;
 }
 
+static int lua_protologiclib_ship_get_orientation_ptr(lua_State* state) {
+	Quaternion* arg_dst = new Quaternion();
+	ship_get_orientation_ptr(arg_dst);
+	lua_pushnumber(state, arg_dst->x);
+	lua_pushnumber(state, arg_dst->y);
+	lua_pushnumber(state, arg_dst->z);
+	lua_pushnumber(state, arg_dst->w);
+	delete arg_dst;
+	return 4;
+}
+
 static int lua_protologiclib_ship_get_angularvelocity_x(lua_State* state) {
 	float result = ship_get_angularvelocity_x();
 	lua_pushnumber(state, result);
@@ -436,6 +470,16 @@ static int lua_protologiclib_ship_get_angularvelocity_z(lua_State* state) {
 	float result = ship_get_angularvelocity_z();
 	lua_pushnumber(state, result);
 	return 1;
+}
+
+static int lua_protologiclib_ship_get_angularvelocity_ptr(lua_State* state) {
+	Vector3* arg_dst = new Vector3();
+	ship_get_angularvelocity_ptr(arg_dst);
+	lua_pushnumber(state, arg_dst->x);
+	lua_pushnumber(state, arg_dst->y);
+	lua_pushnumber(state, arg_dst->z);
+	delete arg_dst;
+	return 3;
 }
 
 static int lua_protologiclib_engine_get_fuel_amount(lua_State* state) {
@@ -621,24 +665,28 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"ship_get_position_x", lua_protologiclib_ship_get_position_x},
 	{"ship_get_position_y", lua_protologiclib_ship_get_position_y},
 	{"ship_get_position_z", lua_protologiclib_ship_get_position_z},
- 	{"ship_get_velocity_x", lua_protologiclib_ship_get_velocity_x},
+	{"ship_get_position_ptr", lua_protologiclib_ship_get_position_ptr},
+	{"ship_get_velocity_x", lua_protologiclib_ship_get_velocity_x},
 	{"ship_get_velocity_y", lua_protologiclib_ship_get_velocity_y},
 	{"ship_get_velocity_z", lua_protologiclib_ship_get_velocity_z},
- 	{"ship_get_orientation_x", lua_protologiclib_ship_get_orientation_x},
+	{"ship_get_velocity_ptr", lua_protologiclib_ship_get_velocity_ptr},
+	{"ship_get_orientation_x", lua_protologiclib_ship_get_orientation_x},
 	{"ship_get_orientation_y", lua_protologiclib_ship_get_orientation_y},
 	{"ship_get_orientation_z", lua_protologiclib_ship_get_orientation_z},
 	{"ship_get_orientation_w", lua_protologiclib_ship_get_orientation_w},
- 	{"ship_get_angularvelocity_x", lua_protologiclib_ship_get_angularvelocity_x},
+	{"ship_get_orientation_ptr", lua_protologiclib_ship_get_orientation_ptr},
+	{"ship_get_angularvelocity_x", lua_protologiclib_ship_get_angularvelocity_x},
 	{"ship_get_angularvelocity_y", lua_protologiclib_ship_get_angularvelocity_y},
 	{"ship_get_angularvelocity_z", lua_protologiclib_ship_get_angularvelocity_z},
- 	{"engine_get_fuel_amount", lua_protologiclib_engine_get_fuel_amount},
+	{"ship_get_angularvelocity_ptr", lua_protologiclib_ship_get_angularvelocity_ptr},
+	{"engine_get_fuel_amount", lua_protologiclib_engine_get_fuel_amount},
 	{"engine_get_fuel_capacity", lua_protologiclib_engine_get_fuel_capacity},
 	{"engine_get_throttle", lua_protologiclib_engine_get_throttle},
 	{"radar_get_target_count", lua_protologiclib_radar_get_target_count},
 	{"radar_get_target_distance", lua_protologiclib_radar_get_target_distance},
 	{"radar_get_target_type", lua_protologiclib_radar_get_target_type},
 	{"radar_get_target_id", lua_protologiclib_radar_get_target_id},
-  	{"gun0_get_bearing", lua_protologiclib_gun0_get_bearing},
+	{"gun0_get_bearing", lua_protologiclib_gun0_get_bearing},
 	{"gun0_get_elevation", lua_protologiclib_gun0_get_elevation},
 	{"gun0_get_refiretime", lua_protologiclib_gun0_get_refiretime},
 	{"gun1_get_bearing", lua_protologiclib_gun1_get_bearing},

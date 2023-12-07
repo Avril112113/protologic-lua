@@ -1,5 +1,5 @@
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.2 --
+-- VERSION 0.0.3 --
 ---@meta
 
 -- Consts set by Cpp/constants_vars.cpp
@@ -83,12 +83,12 @@ SHIPRADIUS = nil
 ---@type number
 MISSILERADIUS = nil
 
----@type number
+---@type integer
 SHIPMAXCPUFUEL = nil
 
----@type number
+---@type integer
 SHIPMINCPUFUEL = nil
 
----@type number
+---@type integer
 SHIPPERTICKCPUFUEL = nil
 

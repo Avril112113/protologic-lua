@@ -1,7 +1,5 @@
-
-
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.2 --
+-- VERSION 0.0.3 --
 ---@meta
 -- All functions related to "doing" stuff.
 
@@ -10,7 +8,7 @@
 ---@field engine_set_throttle fun(throttle: number): nil
 --- Set the torque for the ship to rotate.
 ---@field wheel_set_torque fun(x: number, y: number, z: number): nil
----@field runninglight_set_state fun(state: number): nil
+---@field runninglight_set_state fun(state: integer): nil
 ---@field radar_set_angle fun(angle: number): nil
 ---@field radar_set_bearing fun(bearing: number): nil
 ---@field radar_set_elevation fun(elevation: number): nil

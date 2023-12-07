@@ -171,6 +171,7 @@ def update_protologic():
 		os.remove(out_zip)
 		with open(PROTOLOGIC_UPDATEDAT_PATH, "w") as f:
 			f.write(pushed_at)
+		
 		PROTOLOGIC_SIM_BIN = get_bin_path("Protologic.Terminal", ["protologic", "Sim", OS])
 		PROTOLOGIC_PLAYER_BIN = get_bin_path("SaturnsEnvy", ["protologic", "Player", OS])
 		if OS != "Windows":

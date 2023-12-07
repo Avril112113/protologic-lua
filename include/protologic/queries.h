@@ -1,11 +1,12 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.0.2 //
+// VERSION 0.0.3 //
 
 
 #pragma once
 
 #include "_import.h"
 #include "Vector3.h"
+#include "Quaternion.h"
 #include "RadarTargetInfo.h"
 
 
@@ -38,7 +39,7 @@ WASM_IMPORT("protologic", "ship_get_orientation_z", ship_get_orientation_z, floa
 
 WASM_IMPORT("protologic", "ship_get_orientation_w", ship_get_orientation_w, float);
 
-WASM_IMPORT("protologic", "ship_get_orientation_ptr", ship_get_orientation_ptr, void, Vector3* dst);
+WASM_IMPORT("protologic", "ship_get_orientation_ptr", ship_get_orientation_ptr, void, Quaternion* dst);
 
 WASM_IMPORT("protologic", "ship_get_angularvelocity_x", ship_get_angularvelocity_x, float);
 

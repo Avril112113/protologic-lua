@@ -1,7 +1,5 @@
-
-
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.2 --
+-- VERSION 0.0.3 --
 ---@meta
 
 ---@class ProtoLogic
@@ -31,7 +29,7 @@
 ---@field const_get_shipwheeltorque fun(): number
 ---@field const_get_shipradius fun(): number
 ---@field const_get_missileradius fun(): number
----@field const_get_shipmaxcpufuel fun(): number
----@field const_get_shipmincpufuel fun(): number
----@field const_get_shippertickcpufuel fun(): number
+---@field const_get_shipmaxcpufuel fun(): integer
+---@field const_get_shipmincpufuel fun(): integer
+---@field const_get_shippertickcpufuel fun(): integer
 protologic = nil

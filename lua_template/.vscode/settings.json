@@ -2,5 +2,10 @@
 	"Lua.runtime.version": "Lua 5.4",
 	"Lua.workspace.library": [
 		"$PROTOLUA_TYPING_PATH"
+	],
+	"Lua.runtime.pathStrict": true,
+	"Lua.runtime.path": [
+		"lua/?.lua",
+		"lua/?/init.lua"
 	]
 }

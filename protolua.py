@@ -13,9 +13,6 @@ import argparse
 import requests
 import platform
 from subprocess import Popen, PIPE
-from datetime import datetime
-from io import TextIOBase
-from typing import IO, TextIO
 
 
 # Must be in GH release name.

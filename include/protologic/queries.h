@@ -1,5 +1,5 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.0.3 //
+// VERSION 0.1.0 //
 
 
 #pragma once
@@ -8,6 +8,7 @@
 #include "Vector3.h"
 #include "Quaternion.h"
 #include "RadarTargetInfo.h"
+#include "RadarContactInfo.h"
 
 
 // queries.h
@@ -55,17 +56,39 @@ WASM_IMPORT("protologic", "engine_get_fuel_capacity", engine_get_fuel_capacity, 
 
 WASM_IMPORT("protologic", "engine_get_throttle", engine_get_throttle, float);
 
-WASM_IMPORT("protologic", "radar_get_target_count", radar_get_target_count, int32_t);
+[[deprecated]] WASM_IMPORT("protologic", "radar_get_target_count", radar_get_target_count, int32_t);
 
-WASM_IMPORT("protologic", "radar_get_target_distance", radar_get_target_distance, float, int32_t index);
+[[deprecated]] WASM_IMPORT("protologic", "radar_get_target_distance", radar_get_target_distance, float, int32_t index);
 
-WASM_IMPORT("protologic", "radar_get_target_type", radar_get_target_type, int32_t, int32_t index);
+[[deprecated]] WASM_IMPORT("protologic", "radar_get_target_type", radar_get_target_type, int32_t, int32_t index);
 
-WASM_IMPORT("protologic", "radar_get_target_id", radar_get_target_id, int64_t, int32_t index);
+[[deprecated]] WASM_IMPORT("protologic", "radar_get_target_id", radar_get_target_id, int64_t, int32_t index);
 
-WASM_IMPORT("protologic", "radar_get_target_info", radar_get_target_info, void, int32_t index, RadarTargetInfo* ptr);
+[[deprecated]] WASM_IMPORT("protologic", "radar_get_target_info", radar_get_target_info, void, int32_t index, RadarTargetInfo* ptr);
 
-WASM_IMPORT("protologic", "radar_get_target_list", radar_get_target_list, void, RadarTargetInfo* ptr, int32_t len);
+[[deprecated]] WASM_IMPORT("protologic", "radar_get_target_list", radar_get_target_list, void, RadarTargetInfo* ptr, int32_t len);
+
+WASM_IMPORT("protologic", "radar_get_noise", radar_get_noise, float);
+
+WASM_IMPORT("protologic", "radar_get_contact_count", radar_get_contact_count, int32_t);
+
+WASM_IMPORT("protologic", "radar_get_contact_type", radar_get_contact_type, int32_t, int32_t index);
+
+WASM_IMPORT("protologic", "radar_get_contact_id", radar_get_contact_id, int64_t, int32_t index);
+
+WASM_IMPORT("protologic", "radar_get_contact_strength", radar_get_contact_strength, float, int32_t index);
+
+WASM_IMPORT("protologic", "radar_get_contact_position_x", radar_get_contact_position_x, float, int32_t index);
+
+WASM_IMPORT("protologic", "radar_get_contact_position_y", radar_get_contact_position_y, float, int32_t index);
+
+WASM_IMPORT("protologic", "radar_get_contact_position_z", radar_get_contact_position_z, float, int32_t index);
+
+WASM_IMPORT("protologic", "radar_get_contact_position_ptr", radar_get_contact_position_ptr, void, int32_t index, Vector3* dst);
+
+WASM_IMPORT("protologic", "radar_get_contact_info", radar_get_contact_info, void, int32_t index, RadarContactInfo* dst);
+
+WASM_IMPORT("protologic", "radar_get_contact_list", radar_get_contact_list, void, RadarContactInfo* ptr, int32_t len);
 
 WASM_IMPORT("protologic", "gun0_get_bearing", gun0_get_bearing, float);
 

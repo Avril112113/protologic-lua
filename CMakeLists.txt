@@ -7,6 +7,7 @@ add_link_options(-Wl,--export=tick)
 add_link_options(-Wl,--export=trap_handler)
 add_compile_options(-fno-exceptions)
 add_link_options(-fno-exceptions)
+add_compile_options(-Wno-deprecated-declarations)
 
 
 # These defines are probably not needed.

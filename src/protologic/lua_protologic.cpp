@@ -1,5 +1,5 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.0.3 //
+// VERSION 0.1.0 //
 
 // Generated lua library utilising the generated C bindings.
 
@@ -9,6 +9,7 @@
 #include "protologic/Vector3.h"
 #include "protologic/Quaternion.h"
 #include "protologic/RadarTargetInfo.h"
+#include "protologic/RadarContactInfo.h"
 
 
 // constants //
@@ -500,30 +501,57 @@ static int lua_protologiclib_engine_get_throttle(lua_State* state) {
 	return 1;
 }
 
-static int lua_protologiclib_radar_get_target_count(lua_State* state) {
-	int32_t result = radar_get_target_count();
-	lua_pushinteger(state, result);
-	return 1;
-}
-
-static int lua_protologiclib_radar_get_target_distance(lua_State* state) {
-	int32_t arg_index = luaL_checkinteger(state, 1);
-	float result = radar_get_target_distance(arg_index);
+static int lua_protologiclib_radar_get_noise(lua_State* state) {
+	float result = radar_get_noise();
 	lua_pushnumber(state, result);
 	return 1;
 }
 
-static int lua_protologiclib_radar_get_target_type(lua_State* state) {
-	int32_t arg_index = luaL_checkinteger(state, 1);
-	int32_t result = radar_get_target_type(arg_index);
+static int lua_protologiclib_radar_get_contact_count(lua_State* state) {
+	int32_t result = radar_get_contact_count();
 	lua_pushinteger(state, result);
 	return 1;
 }
 
-static int lua_protologiclib_radar_get_target_id(lua_State* state) {
+static int lua_protologiclib_radar_get_contact_type(lua_State* state) {
 	int32_t arg_index = luaL_checkinteger(state, 1);
-	int64_t result = radar_get_target_id(arg_index);
+	int32_t result = radar_get_contact_type(arg_index);
 	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_radar_get_contact_id(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	int64_t result = radar_get_contact_id(arg_index);
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_radar_get_contact_strength(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	float result = radar_get_contact_strength(arg_index);
+	lua_pushnumber(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_radar_get_contact_position_x(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	float result = radar_get_contact_position_x(arg_index);
+	lua_pushnumber(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_radar_get_contact_position_y(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	float result = radar_get_contact_position_y(arg_index);
+	lua_pushnumber(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_radar_get_contact_position_z(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	float result = radar_get_contact_position_z(arg_index);
+	lua_pushnumber(state, result);
 	return 1;
 }
 
@@ -682,10 +710,14 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"engine_get_fuel_amount", lua_protologiclib_engine_get_fuel_amount},
 	{"engine_get_fuel_capacity", lua_protologiclib_engine_get_fuel_capacity},
 	{"engine_get_throttle", lua_protologiclib_engine_get_throttle},
-	{"radar_get_target_count", lua_protologiclib_radar_get_target_count},
-	{"radar_get_target_distance", lua_protologiclib_radar_get_target_distance},
-	{"radar_get_target_type", lua_protologiclib_radar_get_target_type},
-	{"radar_get_target_id", lua_protologiclib_radar_get_target_id},
+	{"radar_get_noise", lua_protologiclib_radar_get_noise},
+	{"radar_get_contact_count", lua_protologiclib_radar_get_contact_count},
+	{"radar_get_contact_type", lua_protologiclib_radar_get_contact_type},
+	{"radar_get_contact_id", lua_protologiclib_radar_get_contact_id},
+	{"radar_get_contact_strength", lua_protologiclib_radar_get_contact_strength},
+	{"radar_get_contact_position_x", lua_protologiclib_radar_get_contact_position_x},
+	{"radar_get_contact_position_y", lua_protologiclib_radar_get_contact_position_y},
+	{"radar_get_contact_position_z", lua_protologiclib_radar_get_contact_position_z},
 	{"gun0_get_bearing", lua_protologiclib_gun0_get_bearing},
 	{"gun0_get_elevation", lua_protologiclib_gun0_get_elevation},
 	{"gun0_get_refiretime", lua_protologiclib_gun0_get_refiretime},

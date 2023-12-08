@@ -19,7 +19,7 @@ from typing import IO, TextIO
 
 
 # Must be in GH release name.
-VERSION = "0.1.5"
+VERSION = "0.1.7"
 
 
 # Some day this will probably change and need updating.

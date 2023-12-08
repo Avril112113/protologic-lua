@@ -1,5 +1,5 @@
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.3 --
+-- VERSION 0.1.0 --
 ---@meta
 
 ---@class ProtoLogic

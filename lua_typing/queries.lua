@@ -1,5 +1,5 @@
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.0.3 --
+-- VERSION 0.1.0 --
 ---@meta
 
 ---@class ProtoLogic
@@ -24,10 +24,14 @@
 ---@field engine_get_fuel_amount fun(): number
 ---@field engine_get_fuel_capacity fun(): number
 ---@field engine_get_throttle fun(): number
----@field radar_get_target_count fun(): integer
----@field radar_get_target_distance fun(index: integer): number
----@field radar_get_target_type fun(index: integer): integer
----@field radar_get_target_id fun(index: integer): integer
+---@field radar_get_noise fun(): number
+---@field radar_get_contact_count fun(): integer
+---@field radar_get_contact_type fun(index: integer): integer
+---@field radar_get_contact_id fun(index: integer): integer
+---@field radar_get_contact_strength fun(index: integer): number
+---@field radar_get_contact_position_x fun(index: integer): number
+---@field radar_get_contact_position_y fun(index: integer): number
+---@field radar_get_contact_position_z fun(index: integer): number
 ---@field gun0_get_bearing fun(): number
 ---@field gun0_get_elevation fun(): number
 ---@field gun0_get_refiretime fun(): number

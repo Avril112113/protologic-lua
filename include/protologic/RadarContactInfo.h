@@ -8,8 +8,8 @@
 
 
 // Target info.
-typedef struct [[deprecated]] _RadarTargetInfo {
+typedef struct _RadarContactInfo {
 	int64_t id;
 	int32_t type;
 	float distance;
-} RadarTargetInfo;
+} RadarContactInfo;

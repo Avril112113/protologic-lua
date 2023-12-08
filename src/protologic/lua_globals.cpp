@@ -1,5 +1,5 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.0.3 //
+// VERSION 0.1.0 //
 
 // Generated lua library utilising the generated C bindings.
 // This NOT ready-made, is to be copy-pasted.

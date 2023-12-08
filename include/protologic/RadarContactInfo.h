@@ -7,9 +7,12 @@
 #include "_import.h"
 
 
-// Target info.
+// Contact info.
 typedef struct _RadarContactInfo {
 	int64_t id;
 	int32_t type;
-	float distance;
+	float signal_strength;
+	float x;
+	float y;
+	float z;
 } RadarContactInfo;

@@ -32,6 +32,8 @@
 ---@field radar_get_contact_position_x fun(index: integer): number
 ---@field radar_get_contact_position_y fun(index: integer): number
 ---@field radar_get_contact_position_z fun(index: integer): number
+---@field radar_get_contact_position_ptr fun(index: integer): number, number, number
+---@field radar_get_contact_info fun(index: integer): protologic.RadarContactInfo
 ---@field gun0_get_bearing fun(): number
 ---@field gun0_get_elevation fun(): number
 ---@field gun0_get_refiretime fun(): number

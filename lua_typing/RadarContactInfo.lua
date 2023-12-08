@@ -1,9 +1,12 @@
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
 -- VERSION 0.1.0 --
 ---@meta
--- Target info.
+-- Contact info.
 
 ---@class protologic.RadarContactInfo
 ---@field id integer
 ---@field type integer
----@field distance number
+---@field signal_strength number
+---@field x number
+---@field y number
+---@field z number

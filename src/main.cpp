@@ -47,6 +47,8 @@ extern "C" void tick() {
 			protolua_stacktrace(state);
 			debug("\n%s", lua_tostring(state, -1));
 		}
+		// Clean up the lua stack, it's got random stuff on it after the exception.
+		lua_resetthread(state);
 	}
 
 	static bool HAS_RUN_INIT = false;

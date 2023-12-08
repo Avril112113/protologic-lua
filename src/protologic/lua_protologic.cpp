@@ -555,6 +555,38 @@ static int lua_protologiclib_radar_get_contact_position_z(lua_State* state) {
 	return 1;
 }
 
+static int lua_protologiclib_radar_get_contact_position_ptr(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	Vector3* arg_dst = new Vector3();
+	radar_get_contact_position_ptr(arg_index, arg_dst);
+	lua_pushnumber(state, arg_dst->x);
+	lua_pushnumber(state, arg_dst->y);
+	lua_pushnumber(state, arg_dst->z);
+	delete arg_dst;
+	return 3;
+}
+
+static int lua_protologiclib_radar_get_contact_info(lua_State* state) {
+	int32_t arg_index = luaL_checkinteger(state, 1);
+	RadarContactInfo* arg_dst = new RadarContactInfo();
+	radar_get_contact_info(arg_index, arg_dst);
+	lua_newtable(state);
+	lua_pushinteger(state, arg_dst->id);
+	lua_setfield(state, -2, "id");
+	lua_pushinteger(state, arg_dst->type);
+	lua_setfield(state, -2, "type");
+	lua_pushnumber(state, arg_dst->signal_strength);
+	lua_setfield(state, -2, "signal_strength");
+	lua_pushnumber(state, arg_dst->x);
+	lua_setfield(state, -2, "x");
+	lua_pushnumber(state, arg_dst->y);
+	lua_setfield(state, -2, "y");
+	lua_pushnumber(state, arg_dst->z);
+	lua_setfield(state, -2, "z");
+	delete arg_dst;
+	return 1;
+}
+
 static int lua_protologiclib_gun0_get_bearing(lua_State* state) {
 	float result = gun0_get_bearing();
 	lua_pushnumber(state, result);
@@ -718,6 +750,8 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"radar_get_contact_position_x", lua_protologiclib_radar_get_contact_position_x},
 	{"radar_get_contact_position_y", lua_protologiclib_radar_get_contact_position_y},
 	{"radar_get_contact_position_z", lua_protologiclib_radar_get_contact_position_z},
+	{"radar_get_contact_position_ptr", lua_protologiclib_radar_get_contact_position_ptr},
+	{"radar_get_contact_info", lua_protologiclib_radar_get_contact_info},
 	{"gun0_get_bearing", lua_protologiclib_gun0_get_bearing},
 	{"gun0_get_elevation", lua_protologiclib_gun0_get_elevation},
 	{"gun0_get_refiretime", lua_protologiclib_gun0_get_refiretime},

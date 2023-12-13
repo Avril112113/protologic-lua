@@ -1,5 +1,5 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.1.0 //
+// VERSION 0.2.0 //
 
 // Generated lua library utilising the generated C bindings.
 
@@ -261,6 +261,12 @@ static int lua_protologiclib_gun0_trigger(lua_State* state) {
 	return 0;
 }
 
+static int lua_protologiclib_gun0_reload(lua_State* state) {
+	int32_t arg_ammo = luaL_checkinteger(state, 1);
+	gun0_reload(arg_ammo);
+	return 0;
+}
+
 static int lua_protologiclib_gun1_set_bearing(lua_State* state) {
 	float arg_bearing = luaL_checknumber(state, 1);
 	gun1_set_bearing(arg_bearing);
@@ -281,6 +287,12 @@ static int lua_protologiclib_gun1_set_fuse(lua_State* state) {
 
 static int lua_protologiclib_gun1_trigger(lua_State* state) {
 	gun1_trigger();
+	return 0;
+}
+
+static int lua_protologiclib_gun1_reload(lua_State* state) {
+	int32_t arg_ammo = luaL_checkinteger(state, 1);
+	gun1_reload(arg_ammo);
 	return 0;
 }
 
@@ -307,6 +319,12 @@ static int lua_protologiclib_gun2_trigger(lua_State* state) {
 	return 0;
 }
 
+static int lua_protologiclib_gun2_reload(lua_State* state) {
+	int32_t arg_ammo = luaL_checkinteger(state, 1);
+	gun2_reload(arg_ammo);
+	return 0;
+}
+
 static int lua_protologiclib_gun3_set_bearing(lua_State* state) {
 	float arg_bearing = luaL_checknumber(state, 1);
 	gun3_set_bearing(arg_bearing);
@@ -327,6 +345,12 @@ static int lua_protologiclib_gun3_set_fuse(lua_State* state) {
 
 static int lua_protologiclib_gun3_trigger(lua_State* state) {
 	gun3_trigger();
+	return 0;
+}
+
+static int lua_protologiclib_gun3_reload(lua_State* state) {
+	int32_t arg_ammo = luaL_checkinteger(state, 1);
+	gun3_reload(arg_ammo);
 	return 0;
 }
 
@@ -605,6 +629,30 @@ static int lua_protologiclib_gun0_get_refiretime(lua_State* state) {
 	return 1;
 }
 
+static int lua_protologiclib_gun0_get_magazine_capacity(lua_State* state) {
+	int32_t result = gun0_get_magazine_capacity();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun0_get_magazine_remaining(lua_State* state) {
+	int32_t result = gun0_get_magazine_remaining();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun0_get_magazine_type(lua_State* state) {
+	int32_t result = gun0_get_magazine_type();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun0_get_magazine_reloadtime(lua_State* state) {
+	float result = gun0_get_magazine_reloadtime();
+	lua_pushnumber(state, result);
+	return 1;
+}
+
 static int lua_protologiclib_gun1_get_bearing(lua_State* state) {
 	float result = gun1_get_bearing();
 	lua_pushnumber(state, result);
@@ -619,6 +667,30 @@ static int lua_protologiclib_gun1_get_elevation(lua_State* state) {
 
 static int lua_protologiclib_gun1_get_refiretime(lua_State* state) {
 	float result = gun1_get_refiretime();
+	lua_pushnumber(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun1_get_magazine_capacity(lua_State* state) {
+	int32_t result = gun1_get_magazine_capacity();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun1_get_magazine_remaining(lua_State* state) {
+	int32_t result = gun1_get_magazine_remaining();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun1_get_magazine_type(lua_State* state) {
+	int32_t result = gun1_get_magazine_type();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun1_get_magazine_reloadtime(lua_State* state) {
+	float result = gun1_get_magazine_reloadtime();
 	lua_pushnumber(state, result);
 	return 1;
 }
@@ -641,6 +713,30 @@ static int lua_protologiclib_gun2_get_refiretime(lua_State* state) {
 	return 1;
 }
 
+static int lua_protologiclib_gun2_get_magazine_capacity(lua_State* state) {
+	int32_t result = gun2_get_magazine_capacity();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun2_get_magazine_remaining(lua_State* state) {
+	int32_t result = gun2_get_magazine_remaining();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun2_get_magazine_type(lua_State* state) {
+	int32_t result = gun2_get_magazine_type();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun2_get_magazine_reloadtime(lua_State* state) {
+	float result = gun2_get_magazine_reloadtime();
+	lua_pushnumber(state, result);
+	return 1;
+}
+
 static int lua_protologiclib_gun3_get_bearing(lua_State* state) {
 	float result = gun3_get_bearing();
 	lua_pushnumber(state, result);
@@ -655,6 +751,30 @@ static int lua_protologiclib_gun3_get_elevation(lua_State* state) {
 
 static int lua_protologiclib_gun3_get_refiretime(lua_State* state) {
 	float result = gun3_get_refiretime();
+	lua_pushnumber(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun3_get_magazine_capacity(lua_State* state) {
+	int32_t result = gun3_get_magazine_capacity();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun3_get_magazine_remaining(lua_State* state) {
+	int32_t result = gun3_get_magazine_remaining();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun3_get_magazine_type(lua_State* state) {
+	int32_t result = gun3_get_magazine_type();
+	lua_pushinteger(state, result);
+	return 1;
+}
+
+static int lua_protologiclib_gun3_get_magazine_reloadtime(lua_State* state) {
+	float result = gun3_get_magazine_reloadtime();
 	lua_pushnumber(state, result);
 	return 1;
 }
@@ -706,18 +826,22 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"gun0_set_elevation", lua_protologiclib_gun0_set_elevation},
 	{"gun0_set_fuse", lua_protologiclib_gun0_set_fuse},
 	{"gun0_trigger", lua_protologiclib_gun0_trigger},
+	{"gun0_reload", lua_protologiclib_gun0_reload},
 	{"gun1_set_bearing", lua_protologiclib_gun1_set_bearing},
 	{"gun1_set_elevation", lua_protologiclib_gun1_set_elevation},
 	{"gun1_set_fuse", lua_protologiclib_gun1_set_fuse},
 	{"gun1_trigger", lua_protologiclib_gun1_trigger},
+	{"gun1_reload", lua_protologiclib_gun1_reload},
 	{"gun2_set_bearing", lua_protologiclib_gun2_set_bearing},
 	{"gun2_set_elevation", lua_protologiclib_gun2_set_elevation},
 	{"gun2_set_fuse", lua_protologiclib_gun2_set_fuse},
 	{"gun2_trigger", lua_protologiclib_gun2_trigger},
+	{"gun2_reload", lua_protologiclib_gun2_reload},
 	{"gun3_set_bearing", lua_protologiclib_gun3_set_bearing},
 	{"gun3_set_elevation", lua_protologiclib_gun3_set_elevation},
 	{"gun3_set_fuse", lua_protologiclib_gun3_set_fuse},
 	{"gun3_trigger", lua_protologiclib_gun3_trigger},
+	{"gun3_reload", lua_protologiclib_gun3_reload},
 	{"debug_sphere_set", lua_protologiclib_debug_sphere_set},
 	{"debug_line_set", lua_protologiclib_debug_line_set},
 	// {{ group.name }} //
@@ -755,15 +879,31 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"gun0_get_bearing", lua_protologiclib_gun0_get_bearing},
 	{"gun0_get_elevation", lua_protologiclib_gun0_get_elevation},
 	{"gun0_get_refiretime", lua_protologiclib_gun0_get_refiretime},
+	{"gun0_get_magazine_capacity", lua_protologiclib_gun0_get_magazine_capacity},
+	{"gun0_get_magazine_remaining", lua_protologiclib_gun0_get_magazine_remaining},
+	{"gun0_get_magazine_type", lua_protologiclib_gun0_get_magazine_type},
+	{"gun0_get_magazine_reloadtime", lua_protologiclib_gun0_get_magazine_reloadtime},
 	{"gun1_get_bearing", lua_protologiclib_gun1_get_bearing},
 	{"gun1_get_elevation", lua_protologiclib_gun1_get_elevation},
 	{"gun1_get_refiretime", lua_protologiclib_gun1_get_refiretime},
+	{"gun1_get_magazine_capacity", lua_protologiclib_gun1_get_magazine_capacity},
+	{"gun1_get_magazine_remaining", lua_protologiclib_gun1_get_magazine_remaining},
+	{"gun1_get_magazine_type", lua_protologiclib_gun1_get_magazine_type},
+	{"gun1_get_magazine_reloadtime", lua_protologiclib_gun1_get_magazine_reloadtime},
 	{"gun2_get_bearing", lua_protologiclib_gun2_get_bearing},
 	{"gun2_get_elevation", lua_protologiclib_gun2_get_elevation},
 	{"gun2_get_refiretime", lua_protologiclib_gun2_get_refiretime},
+	{"gun2_get_magazine_capacity", lua_protologiclib_gun2_get_magazine_capacity},
+	{"gun2_get_magazine_remaining", lua_protologiclib_gun2_get_magazine_remaining},
+	{"gun2_get_magazine_type", lua_protologiclib_gun2_get_magazine_type},
+	{"gun2_get_magazine_reloadtime", lua_protologiclib_gun2_get_magazine_reloadtime},
 	{"gun3_get_bearing", lua_protologiclib_gun3_get_bearing},
 	{"gun3_get_elevation", lua_protologiclib_gun3_get_elevation},
 	{"gun3_get_refiretime", lua_protologiclib_gun3_get_refiretime},
+	{"gun3_get_magazine_capacity", lua_protologiclib_gun3_get_magazine_capacity},
+	{"gun3_get_magazine_remaining", lua_protologiclib_gun3_get_magazine_remaining},
+	{"gun3_get_magazine_type", lua_protologiclib_gun3_get_magazine_type},
+	{"gun3_get_magazine_reloadtime", lua_protologiclib_gun3_get_magazine_reloadtime},
  	/* sentinel */
 	{NULL, NULL}
 };

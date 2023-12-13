@@ -1,5 +1,5 @@
 -- DO NOT MODIFY, THIS FILE IS GENERATED --
--- VERSION 0.1.0 --
+-- VERSION 0.2.0 --
 ---@meta
 
 ---@class ProtoLogic
@@ -37,13 +37,29 @@
 ---@field gun0_get_bearing fun(): number
 ---@field gun0_get_elevation fun(): number
 ---@field gun0_get_refiretime fun(): number
+---@field gun0_get_magazine_capacity fun(): integer
+---@field gun0_get_magazine_remaining fun(): integer
+---@field gun0_get_magazine_type fun(): integer
+---@field gun0_get_magazine_reloadtime fun(): number
 ---@field gun1_get_bearing fun(): number
 ---@field gun1_get_elevation fun(): number
 ---@field gun1_get_refiretime fun(): number
+---@field gun1_get_magazine_capacity fun(): integer
+---@field gun1_get_magazine_remaining fun(): integer
+---@field gun1_get_magazine_type fun(): integer
+---@field gun1_get_magazine_reloadtime fun(): number
 ---@field gun2_get_bearing fun(): number
 ---@field gun2_get_elevation fun(): number
 ---@field gun2_get_refiretime fun(): number
+---@field gun2_get_magazine_capacity fun(): integer
+---@field gun2_get_magazine_remaining fun(): integer
+---@field gun2_get_magazine_type fun(): integer
+---@field gun2_get_magazine_reloadtime fun(): number
 ---@field gun3_get_bearing fun(): number
 ---@field gun3_get_elevation fun(): number
 ---@field gun3_get_refiretime fun(): number
+---@field gun3_get_magazine_capacity fun(): integer
+---@field gun3_get_magazine_remaining fun(): integer
+---@field gun3_get_magazine_type fun(): integer
+---@field gun3_get_magazine_reloadtime fun(): number
 protologic = nil

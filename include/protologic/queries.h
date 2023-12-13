@@ -1,5 +1,5 @@
 // DO NOT MODIFY, THIS FILE IS GENERATED //
-// VERSION 0.1.0 //
+// VERSION 0.2.0 //
 
 
 #pragma once
@@ -96,11 +96,27 @@ WASM_IMPORT("protologic", "gun0_get_elevation", gun0_get_elevation, float);
 
 WASM_IMPORT("protologic", "gun0_get_refiretime", gun0_get_refiretime, float);
 
+WASM_IMPORT("protologic", "gun0_get_magazine_capacity", gun0_get_magazine_capacity, int32_t);
+
+WASM_IMPORT("protologic", "gun0_get_magazine_remaining", gun0_get_magazine_remaining, int32_t);
+
+WASM_IMPORT("protologic", "gun0_get_magazine_type", gun0_get_magazine_type, int32_t);
+
+WASM_IMPORT("protologic", "gun0_get_magazine_reloadtime", gun0_get_magazine_reloadtime, float);
+
 WASM_IMPORT("protologic", "gun1_get_bearing", gun1_get_bearing, float);
 
 WASM_IMPORT("protologic", "gun1_get_elevation", gun1_get_elevation, float);
 
 WASM_IMPORT("protologic", "gun1_get_refiretime", gun1_get_refiretime, float);
+
+WASM_IMPORT("protologic", "gun1_get_magazine_capacity", gun1_get_magazine_capacity, int32_t);
+
+WASM_IMPORT("protologic", "gun1_get_magazine_remaining", gun1_get_magazine_remaining, int32_t);
+
+WASM_IMPORT("protologic", "gun1_get_magazine_type", gun1_get_magazine_type, int32_t);
+
+WASM_IMPORT("protologic", "gun1_get_magazine_reloadtime", gun1_get_magazine_reloadtime, float);
 
 WASM_IMPORT("protologic", "gun2_get_bearing", gun2_get_bearing, float);
 
@@ -108,9 +124,25 @@ WASM_IMPORT("protologic", "gun2_get_elevation", gun2_get_elevation, float);
 
 WASM_IMPORT("protologic", "gun2_get_refiretime", gun2_get_refiretime, float);
 
+WASM_IMPORT("protologic", "gun2_get_magazine_capacity", gun2_get_magazine_capacity, int32_t);
+
+WASM_IMPORT("protologic", "gun2_get_magazine_remaining", gun2_get_magazine_remaining, int32_t);
+
+WASM_IMPORT("protologic", "gun2_get_magazine_type", gun2_get_magazine_type, int32_t);
+
+WASM_IMPORT("protologic", "gun2_get_magazine_reloadtime", gun2_get_magazine_reloadtime, float);
+
 WASM_IMPORT("protologic", "gun3_get_bearing", gun3_get_bearing, float);
 
 WASM_IMPORT("protologic", "gun3_get_elevation", gun3_get_elevation, float);
 
 WASM_IMPORT("protologic", "gun3_get_refiretime", gun3_get_refiretime, float);
+
+WASM_IMPORT("protologic", "gun3_get_magazine_capacity", gun3_get_magazine_capacity, int32_t);
+
+WASM_IMPORT("protologic", "gun3_get_magazine_remaining", gun3_get_magazine_remaining, int32_t);
+
+WASM_IMPORT("protologic", "gun3_get_magazine_type", gun3_get_magazine_type, int32_t);
+
+WASM_IMPORT("protologic", "gun3_get_magazine_reloadtime", gun3_get_magazine_reloadtime, float);
 

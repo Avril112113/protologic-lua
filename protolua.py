@@ -16,7 +16,7 @@ from subprocess import Popen, PIPE
 
 
 # Must be in GH release name.
-VERSION = "0.1.8"
+VERSION = "0.1.9"
 
 
 # Some day this will probably change and need updating.

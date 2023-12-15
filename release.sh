@@ -1,6 +1,27 @@
 #!/bin/bash
 set -e
 
+# From https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
+gh_get_latest_release_version() {
+	curl --silent "https://api.github.com/repos/Avril112113/protologic-lua/releases?per_page=1" | # Get latest release from GitHub api
+		grep '"tag_name":' |                                            # Get tag line
+		sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
+
+py_get_latest_release_version() {
+	grep 'VERSION = ' protolua.py |
+		sed -E 's/.*"([^"]+)".*/\1/'
+}
+
+echo - Checking version has changed
+
+if [[ $(gh_get_latest_release_version) == $(py_get_latest_release_version) ]]; then
+echo Please update version number in protolua.py
+exit -1
+fi
+
+echo
+
 rm -f -r ./release/
 mkdir ./release/
 
@@ -34,7 +55,7 @@ echo
 
 echo - Built ./release/ProtoLua/
 if [[ $BUILT_WINDOWS -ne 1 ]]; then
-echo WARN: Windows binary for \'protolua.py\' will need to be built on windows or wsl!
+echo WARN: Windows binary for \'protolua.py\' will need to be built on windows or re-run this in wsl!
 fi
 
 cd ./release && zip -r ProtoLua.zip ./ProtoLua/

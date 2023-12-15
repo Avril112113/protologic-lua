@@ -59,6 +59,16 @@ if os.path.exists("./CMakeLists.txt"):
 		os.mkdir(PROTOLUA_UPDATE_PATH)
 
 
+def compare_version_strs(v1: str, v2: str) -> bool:
+	m1 = re.search(r"(\d+)\.(\d+)\.(\d+)", v1)
+	m2 = re.search(r"(\d+)\.(\d+)\.(\d+)", v2)
+	if m1 is None or m2 is None:
+		return None
+	t1 = tuple(int(s) for s in m1.groups())
+	t2 = tuple(int(s) for s in m2.groups())
+	return t1 > t2
+
+
 def get_gh_releases(owner: str, repo: str, count=100, page=1) -> "list[dict]":
 	response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/releases?per_page={count}&page={page}")
 	response.raise_for_status()
@@ -183,7 +193,11 @@ def update_protologic():
 
 def update_protolua():
 	release = get_gh_releases("Avril112113", "protologic-lua", count=1)[0]
-	if VERSION in release["name"]:
+	is_newer = compare_version_strs(release["name"], VERSION)
+	if is_newer is None:
+		print("Latest ProtoLua release is missing version string.")
+		return
+	elif not is_newer:
 		print("No protolua update found.")
 		return
 	# Due to the protologic binary clashing with the directory name of the update, we need another folder...
@@ -270,7 +284,7 @@ def protolua_project_build(out: str, optimization: int, wat=False):
 def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
 	print(f"~ Simulating {fleets} -> {replay_out} & {log}")
 	if PROTOLOGIC_SIM_BIN is None:
-		print("ProtoLogic sim not found (Is it supported on {OS}? try 'protolua update')", file=sys.stderr)
+		print(f"ProtoLogic sim not found (Is it supported on {OS}? try 'protolua update')", file=sys.stderr)
 		exit(-1)
 	log_f = open(log, "w")
 	p = Popen([
@@ -296,7 +310,7 @@ def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
 def protolua_play(replay_path: str):
 	print(f"~ Playing {replay_path}")
 	if PROTOLOGIC_PLAYER_BIN is None:
-		print("ProtoLogic player not found (Is it supported on {OS}? try 'update')", file=sys.stderr)
+		print(f"ProtoLogic player not found (Is it supported on {OS}? try 'update')", file=sys.stderr)
 		exit(-1)
 	if Popen([
 		PROTOLOGIC_PLAYER_BIN,

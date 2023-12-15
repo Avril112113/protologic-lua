@@ -40,12 +40,10 @@ set(LUA_SOURCE
     "src/ltablib.c"
     "src/lutf8lib.c"
     "src/linit.c"
-    "../fill/setjmp.c"
-    "../fill/fill.c"
 )
 
+include_directories("../../include")
 include_directories("../fill")
 
-file(GLOB SOURCES *.c)
-
-add_library(lua ${LUA_SOURCE};${SOURCES})
+add_library(lua ${LUA_SOURCE})
+target_link_libraries(lua fill)

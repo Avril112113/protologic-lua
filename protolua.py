@@ -6,7 +6,6 @@ import stat
 import sys
 import shutil
 import tarfile
-import time
 import traceback
 import zipfile
 import argparse
@@ -16,7 +15,7 @@ from subprocess import Popen, PIPE
 
 
 # Must be in GH release name.
-VERSION = "0.1.9"
+VERSION = "0.2.0"
 
 
 # Some day this will probably change and need updating.

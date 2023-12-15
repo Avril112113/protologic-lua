@@ -4,15 +4,15 @@ There are few workarounds you need to keep in-mind when using ProtoLua.
 
 
 ## Important to keep in mind  
-Lua errors are not handled the same, they are not recoverable within Lua!  
-If an error occurs, it will be printed on the next tick, before `tick()` is run.  
-`pcall`, `xpcall` and `coroutine` are not available.  
-
 Lua is initially run outside of the protologic sim to load everything.  
 `init()` and `tick()` are called when running inside the protologic sim.  
 When outside of the protologic sim, you have access to the filesystem (only `./lua/`).  
 When inside of the protologic sim, you no longer have a filesystem.  
 Code should still be system safe despite this, though there are no guarantees.  
+
+Minor note, a custom `setjmp`/`longjmp` implementation is used, utilising Binaryen's wasm-opt asyncify.  
+This implementation is tested, but could still have bugs.  
+The affected areas would be `pcall`, `xpcall` and `coroutine`s.  
 
 
 ## Usage
@@ -22,17 +22,17 @@ There is a single release which has binaries/executables for both Windows and Li
 
 Download the latest release of the tool from [Releases](https://github.com/Avril112113/protologic-lua/releases).  
 Extract the `.zip`.  
-Optionally, add the directory to your PATH so you can access it easily.  
+Optionally, add the directory to your PATH so you can access it from anywhere, simply with `protolua`.  
 
 If on Linux, use `protolua` instead of `protolua.exe`.  
 
-When running `protolua.exe` with any action, it will automatically download [needed tools](#Automatically-downloaded-tools) from github.  
-To create a new project run `protolua.exe create myfleet`  
-To build the new project, enter the project directory and run `protolua.exe build`  
-To build, sim and preview your fleet, run `protolua.exe build --fast --sim --play`  
+When running `protolua` with any action, it will automatically download [needed tools](#Automatically-downloaded-tools) from github.  
+To create a new project run `protolua create myfleet`  
+To build the new project, enter the project directory and run `protolua build`  
+To build, sim and preview your fleet, run `protolua build --fast --sim --play`  
 `--fast` makes the build faster, at the cost of a un-optimized wasm file.  
 
-To check for updates for `protolua` or `protologic`, run `protolua.exe update`  
+To check for updates for `protolua` or `protologic`, run `protolua update`  
 
 
 ## Contribution
@@ -47,19 +47,12 @@ If on windows, use `wsl` and ensure all files are on the wsl filesystem to speed
 Update `WASI_SDK_PATH` in `build.sh`, don't commit this change.  
 Run `./build.sh` to build `protologic.wasm`.  
 Copy `./lua_template/` as `./lua/`.  
-Run `./test.sh` to test using local files in `./lua/` (you will need to create `./lua/`)  
+Run `./test.sh` to test using local files in `./lua/` (you will need to ensure `./lua/` is created)  
 To simplify `clear && ./build.sh && ./test.sh`.  
 
 
-## Detailed explanation: Lua `error`, `pcall`, `xpcall` and `coroutine`.
-Lua errors are not handled as you might expect, `pcall` and `xpcall` do not recover from errors.  
-This is a WASM limitation, without the ability to have support code in the host environment there is no way to properly implement `setjmp`/`longjmp`.  
-So, when `longjmp` does get called by Lua, it just aborts instead, then the error is printed at the begging of the next tick.  
-`coroutine`, `pcall` and `xpcall` are not accessible for the same reason, because `setjmp`/`longjmp`.  
-
-
 ## Automatically downloaded tools
-Protolua will automatically download needed tools to build your fleet.  
+ProtoLua will automatically download needed tools to build your fleet.  
 These are the following;  
 [WebAssembly/binaryen](https://github.com/WebAssembly/binaryen)  
 [bytecodealliance/wizer](https://github.com/bytecodealliance/wizer)  

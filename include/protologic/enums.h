@@ -64,6 +64,8 @@ const inline char* TrapCodeToString(enum TrapCode code) {
             return "IntegerDivisionByZero";
         case BadConversionToInteger:
             return "BadConversionToInteger";
+        case Unreachable:
+            return "Unreachable";
         case Interrupt:
             return "Interrupt";
         case OutOfFuel:

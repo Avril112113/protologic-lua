@@ -9,17 +9,6 @@
 lua_State* protolua_init() {
 	lua_State* state = luaL_newstate();
 	luaL_openlibs(state);
-
-	// lua `coroutine` library doesn't work due to our `longjmp` hack.
-	lua_pushnil(state);
-	lua_setglobal(state, "coroutine");
-
-	lua_pushnil(state);
-	lua_setglobal(state, "pcall");
-
-	lua_pushnil(state);
-	lua_setglobal(state, "xpcall");
-
 	return state;
 }
 

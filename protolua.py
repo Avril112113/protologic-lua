@@ -339,7 +339,12 @@ if __name__ == "__main__":
 	args_parser_build.add_argument("--sim", action="store_true", help="After building, run the sim.")
 	args_parser_build.add_argument("--play", action="store_true", help="After building, run the player.")
 
-	args_parser_update = args_parser_actions.add_parser("update", help="Update protolua & protologic.")
+	args_parser_test = args_parser_actions.add_parser("test", help="Tests a protolua project (same as `protolua build --fast --sim`)")
+	args_parser_test.add_argument("-o", "--out", help="Name to output as")
+	args_parser_test.add_argument("--wat", action="store_true", help="Runs bineryen wasm2wat.")
+	args_parser_test.add_argument("--play", action="store_true", help="After building, run the player.")
+
+	args_parser_update = args_parser_actions.add_parser("update", help="Update protolua & protologic from github.")
 
 
 	args = args_parser.parse_args()
@@ -360,14 +365,16 @@ if __name__ == "__main__":
 		update_protolua()
 	elif args.action == "create":
 		protolua_project_create(args.name, args.delete)
-	elif args.action == "build":
+	elif args.action == "upgrade":
+		protolua_project_upgrade()
+	elif args.action == "test" or args.action == "build":
 		ship_wasm = args.out if args.out else "ship.wasm"
 		protolua_project_build(
 			out=ship_wasm,
-			optimization=0 if args.fast else 4,
+			optimization=0 if args.action == "test" or args.fast else 4,
 			wat=args.wat
 		)
-		if args.sim:
+		if args.action == "test" or args.sim:
 			protolua_sim([ship_wasm, ship_wasm], "test.json.deflate")
 			if args.play:
 				protolua_play("test.json.deflate")

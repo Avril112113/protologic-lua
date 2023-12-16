@@ -8,5 +8,12 @@
 		"_WASI_EMULATED_SIGNAL",
 		"_WASI_EMULATED_PROCESS_CLOCKS"
 	],
-	"C_Cpp.default.compilerPath": "/home/dude/wasi-sdk-20.0/bin/clang++"
+	"C_Cpp.default.compilerPath": "/home/dude/wasi-sdk-20.0/bin/clang++",
+	"Lua.runtime.pathStrict": true,
+	"Lua.runtime.path": [
+		"lua/?.lua",
+		"lua/?/init.lua",
+		"lua_lib/?.lua",
+		"lua_lib/?/init.lua",
+	]
 }

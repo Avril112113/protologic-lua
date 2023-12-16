@@ -13,9 +13,11 @@ import requests
 import platform
 from subprocess import Popen, PIPE
 
+from protolua_out_utils import ProtoLuaSimOutUtils
+
 
 # Must be in GH release name.
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 
 # Some day this will probably change and need updating.
@@ -33,6 +35,7 @@ TOOLS_PATH = os.path.join(PROTOLUA_PATH, "tools")
 WASM_PATH = os.path.join(PROTOLUA_PATH, "build", "protolua.wasm")
 TEMPLATE_PATH = os.path.join(PROTOLUA_PATH, "lua_template")
 TYPING_PATH = os.path.join(PROTOLUA_PATH, "lua_typing")
+LUA_LIB_PATH = os.path.join(PROTOLUA_PATH, "lua_lib")
 
 PROTOLOGIC_PATH = os.path.join(TOOLS_PATH, "protologic")
 PROTOLOGIC_UPDATEDAT_PATH = os.path.join(PROTOLOGIC_PATH, "updatedat.txt")
@@ -226,18 +229,33 @@ def file_replace_content(file: str, subs: "dict[str, str]"):
 		f.write(data)
 
 
+def protolua_project_upgrade(base: str = "."):
+	if not os.path.exists(os.path.join(base, "lua")):
+		print(f"Invalid project directory \"{base}\"", file=sys.stderr)
+		exit(-1)
+	for path in os.listdir(LUA_LIB_PATH):
+		src = os.path.join(LUA_LIB_PATH, path)
+		out = os.path.join(base, "lua", path)
+		print(f"Updating \"{out}\"")
+		shutil.rmtree(out, ignore_errors=True)
+		shutil.copytree(src, out)
+
+
 def protolua_project_create(name: str, replace=False):
-	if os.path.isdir(name):
+	path = os.path.join(".", name)  # Mostly just for display reasons
+	if os.path.isdir(path):
 		if replace:
-			shutil.rmtree(name)
+			shutil.rmtree(path)
 		else:
-			print(f"Directory already exists '{name}'", file=sys.stderr)
+			print(f"Directory already exists '{path}'", file=sys.stderr)
 			exit(-1)
-	shutil.copytree(TEMPLATE_PATH, name)
-	file_replace_content(os.path.join(name, ".vscode", "settings.json"), {
+	
+	shutil.copytree(TEMPLATE_PATH, path)
+	file_replace_content(os.path.join(path, ".vscode", "settings.json"), {
 		"$PROTOLUA_TYPING_PATH": TYPING_PATH.replace("\\", "\\\\"),
 	})
-	print(f"Project created '{name}'")
+	protolua_project_upgrade(path)
+	print(f"Project created '{path}'")
 
 
 def protolua_project_build(out: str, optimization: int, wat=False):
@@ -280,11 +298,12 @@ def protolua_project_build(out: str, optimization: int, wat=False):
 	print(f"Project build to '{out}'")
 
 
-def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
+def protolua_sim(fleets: "list[str]", replay_out: str, log: str):
 	print(f"~ Simulating {fleets} -> {replay_out} & {log}")
 	if PROTOLOGIC_SIM_BIN is None:
 		print(f"ProtoLogic sim not found (Is it supported on {OS}? try 'protolua update')", file=sys.stderr)
 		exit(-1)
+	os.makedirs(os.path.dirname(log), exist_ok=True)
 	log_f = open(log, "w")
 	p = Popen([
 		PROTOLOGIC_SIM_BIN,
@@ -292,14 +311,23 @@ def protolua_sim(fleets: "list[str]", replay_out: str, log: str="sim.log"):
 		"--output", os.path.abspath(replay_out.replace('.json.deflate', '')),
 		"-f", *[os.path.abspath(fleet) for fleet in fleets]
 	], stdout=PIPE, stderr=PIPE)
+	simOutUtils = ProtoLuaSimOutUtils()
 	for line in p.stdout:
 		line = line.decode("utf-8")
-		sys.stdout.write(line)
-		log_f.write(line)
+		if line.endswith("\r\n"):
+			line = f"{line[:-2]}\n"
+		if not simOutUtils.handle(line):
+			sys.stdout.write(line)
+			log_f.write(line)
+			log_f.flush()  # sim can take a moment, update the file for live viewing
 	for line in p.stderr:
 		line = line.decode("utf-8")
+		if line.endswith("\r\n"):
+			line = f"{line[:-2]}\n"
 		sys.stderr.write(line)
 		log_f.write(line)
+		log_f.flush()  # sim can take a moment, update the file for live viewing
+	del simOutUtils  # Call it's __del__ to cleanup files, etc.
 	code = p.wait()
 	log_f.close()
 	if code != 0:
@@ -331,6 +359,8 @@ if __name__ == "__main__":
 	args_parser_create = args_parser_actions.add_parser("create", help="Create new protolua project.")
 	args_parser_create.add_argument("name")
 	args_parser_create.add_argument("--delete", action="store_true", help=argparse.SUPPRESS)
+
+	args_parser_upgrade = args_parser_actions.add_parser("upgrade", help="Updates current project.")
 
 	args_parser_build = args_parser_actions.add_parser("build", help="Builds a protolua project.")
 	args_parser_build.add_argument("-o", "--out", help="Name to output as")
@@ -375,8 +405,8 @@ if __name__ == "__main__":
 			wat=args.wat
 		)
 		if args.action == "test" or args.sim:
-			protolua_sim([ship_wasm, ship_wasm], "test.json.deflate")
+			protolua_sim([ship_wasm, ship_wasm], "sim/test.json.deflate", "sim/out.log")
 			if args.play:
-				protolua_play("test.json.deflate")
+				protolua_play("sim/test.json.deflate")
 	else:
 		raise Exception(f"Unhandled arg action {args.action}")

@@ -28,7 +28,7 @@ mkdir ./release/
 echo - Copying files to ./release/ProtoLua/
 
 mkdir ./release/ProtoLua/
-cp protolua.py ./release/ProtoLua/protolua.py
+cp -r lua_lib ./release/ProtoLua/lua_lib
 cp -r lua_template ./release/ProtoLua/lua_template
 cp -r lua_typing ./release/ProtoLua/lua_typing
 

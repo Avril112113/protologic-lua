@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
 
-./protolua.sh build --fast --wat --sim --play
+./protolua.sh upgrade
+./protolua.sh test --wat $@

@@ -14,10 +14,16 @@ lua_State* protolua_init() {
 
 // Setup protolua API.
 // This is anything that requires to be in the protologic host envrionment.
-void protolua_setup_api(lua_State* state) {
+// BUT, can be setup from wizer.
+void protolua_setup_api_pre(lua_State* state) {
 	// protologic
 	luaopen_protologic(state);
 	lua_setglobal(state, "protologic");
+}
 
+// Setup protolua API.
+// This is anything that requires to be in the protologic host envrionment.
+// AND, must be done inside the protologic host envrionment.
+void protolua_setup_api_post(lua_State* state) {
 	lua_protologic_set_globals(state);
 }

@@ -26,6 +26,10 @@ static void init() {
 		debug("%s\n", lua_tostring(state, -1));
 	}
 	lua_pop(state, lua_gettop(state));  // Clear stack of any return values.
+
+	// After exiting here, we will be in the protologic environment.
+	// This is done here instead to save fuel on the first tick.
+	protolua_setup_api_pre(state);
 }
 WIZER_INIT(init);
 
@@ -37,7 +41,7 @@ void _tick() {
 	static bool HAS_RUN_INIT = false;
 	if (!HAS_RUN_INIT) {
 		HAS_RUN_INIT = true;
-		protolua_setup_api(state);
+		protolua_setup_api_post(state);
 		if (lua_getglobal(state, "init") != 0 && lua_isfunction(state, -1)) {
 			if (protolua_pcall(state, 0, LUA_MULTRET) != 0) {
 				debug("Error in _G.init()");

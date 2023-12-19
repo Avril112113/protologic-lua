@@ -17,7 +17,7 @@ from protolua_out_utils import ProtoLuaSimOutUtils
 
 
 # Must be in GH release name.
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 
 
 # Some day this will probably change and need updating.
@@ -298,7 +298,7 @@ def protolua_project_build(out: str, optimization: int, wat=False):
 	print(f"Project build to '{out}'")
 
 
-def protolua_sim(fleets: "list[str]", replay_out: str, log: str):
+def protolua_sim(fleets: "list[str]", replay_out: str, log: str, double_debug=False):
 	print(f"~ Simulating {fleets} -> {replay_out} & {log}")
 	if PROTOLOGIC_SIM_BIN is None:
 		print(f"ProtoLogic sim not found (Is it supported on {OS}? try 'protolua update')", file=sys.stderr)
@@ -307,7 +307,7 @@ def protolua_sim(fleets: "list[str]", replay_out: str, log: str):
 	log_f = open(log, "w")
 	p = Popen([
 		PROTOLOGIC_SIM_BIN,
-		"--debug", "true", "false",
+		"--debug", "true", "true" if double_debug else "false",
 		"--output", os.path.abspath(replay_out.replace('.json.deflate', '')),
 		"-f", *[os.path.abspath(fleet) for fleet in fleets]
 	], stdout=PIPE, stderr=PIPE)
@@ -368,11 +368,13 @@ if __name__ == "__main__":
 	args_parser_build.add_argument("--wat", action="store_true", help="Runs bineryen wasm2wat.")
 	args_parser_build.add_argument("--sim", action="store_true", help="After building, run the sim.")
 	args_parser_build.add_argument("--play", action="store_true", help="After building, run the player.")
+	args_parser_build.add_argument("--debug2", action="store_true", help="Debug both fleets.")
 
 	args_parser_test = args_parser_actions.add_parser("test", help="Tests a protolua project (same as `protolua build --fast --sim`)")
 	args_parser_test.add_argument("-o", "--out", help="Name to output as")
 	args_parser_test.add_argument("--wat", action="store_true", help="Runs bineryen wasm2wat.")
 	args_parser_test.add_argument("--play", action="store_true", help="After building, run the player.")
+	args_parser_test.add_argument("--debug2", action="store_true", help="Debug both fleets.")
 
 	args_parser_update = args_parser_actions.add_parser("update", help="Update protolua & protologic from github.")
 
@@ -405,7 +407,7 @@ if __name__ == "__main__":
 			wat=args.wat
 		)
 		if args.action == "test" or args.sim:
-			protolua_sim([ship_wasm, ship_wasm], "sim/test.json.deflate", "sim/out.log")
+			protolua_sim([ship_wasm, ship_wasm], "sim/test.json.deflate", "sim/out.log", double_debug=args.debug2)
 			if args.play:
 				protolua_play("sim/test.json.deflate")
 	else:

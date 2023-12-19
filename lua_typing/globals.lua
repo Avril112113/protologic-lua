@@ -39,43 +39,19 @@ TURRETSHELLSPEED = nil
 TURRETREFIRETIME = nil
 
 ---@type number
-MISSILERADARMINRANGE = nil
-
----@type number
-MISSILERADARMAXRANGE = nil
-
----@type number
-MISSILERADARMINANGLE = nil
-
----@type number
-MISSILERADARMAXANGLE = nil
-
----@type number
 SHIPRADARMINANGLE = nil
 
 ---@type number
 SHIPRADARMAXANGLE = nil
 
 ---@type number
-MISSILEREFIRETIME = nil
-
----@type number
 SHIPBASEMASS = nil
-
----@type number
-MISSILEBASEMASS = nil
-
----@type number
-MISSILEWHEELTORQUE = nil
 
 ---@type number
 SHIPWHEELTORQUE = nil
 
 ---@type number
 SHIPRADIUS = nil
-
----@type number
-MISSILERADIUS = nil
 
 ---@type integer
 SHIPMAXCPUFUEL = nil

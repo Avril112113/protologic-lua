@@ -43,44 +43,20 @@ void lua_protologic_set_globals(lua_State* state) {
 	lua_pushnumber(state, const_get_turretrefiretime());
 	lua_setglobal(state, "TURRETREFIRETIME");
 
-	lua_pushnumber(state, const_get_missileradarminrange());
-	lua_setglobal(state, "MISSILERADARMINRANGE");
-
-	lua_pushnumber(state, const_get_missileradarmaxrange());
-	lua_setglobal(state, "MISSILERADARMAXRANGE");
-
-	lua_pushnumber(state, const_get_missileradarminangle());
-	lua_setglobal(state, "MISSILERADARMINANGLE");
-
-	lua_pushnumber(state, const_get_missileradarmaxangle());
-	lua_setglobal(state, "MISSILERADARMAXANGLE");
-
 	lua_pushnumber(state, const_get_shipradarminangle());
 	lua_setglobal(state, "SHIPRADARMINANGLE");
 
 	lua_pushnumber(state, const_get_shipradarmaxangle());
 	lua_setglobal(state, "SHIPRADARMAXANGLE");
 
-	lua_pushnumber(state, const_get_missilerefiretime());
-	lua_setglobal(state, "MISSILEREFIRETIME");
-
 	lua_pushnumber(state, const_get_shipbasemass());
 	lua_setglobal(state, "SHIPBASEMASS");
-
-	lua_pushnumber(state, const_get_missilebasemass());
-	lua_setglobal(state, "MISSILEBASEMASS");
-
-	lua_pushnumber(state, const_get_missilewheeltorque());
-	lua_setglobal(state, "MISSILEWHEELTORQUE");
 
 	lua_pushnumber(state, const_get_shipwheeltorque());
 	lua_setglobal(state, "SHIPWHEELTORQUE");
 
 	lua_pushnumber(state, const_get_shipradius());
 	lua_setglobal(state, "SHIPRADIUS");
-
-	lua_pushnumber(state, const_get_missileradius());
-	lua_setglobal(state, "MISSILERADIUS");
 
 	lua_pushinteger(state, const_get_shipmaxcpufuel());
 	lua_setglobal(state, "SHIPMAXCPUFUEL");

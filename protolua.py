@@ -17,7 +17,7 @@ from protolua_out_utils import ProtoLuaSimOutUtils
 
 
 # Must be in GH release name.
-VERSION = "0.2.1"
+VERSION = "0.2.2"
 
 
 # Some day this will probably change and need updating.
@@ -27,7 +27,7 @@ PROTOLOGIC_REPO_API = "https://api.github.com/repos/Protologic/Release"
 OS = platform.system()
 
 if getattr(sys, "frozen", False):
-    PROTOLUA_PATH = os.path.dirname(sys.executable)
+	PROTOLUA_PATH = os.path.dirname(sys.executable)
 elif __file__:
 	PROTOLUA_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -354,7 +354,7 @@ if __name__ == "__main__":
 	args_parser.add_argument("--no-tools", action="store_true", help="Do not download tools if they are missing")
 	args_parser_actions = args_parser.add_subparsers(dest="action", required=True)
 
-	args_parser_create = args_parser_actions.add_parser("version", help="Gets the current version of protolua.")
+	args_parser_version = args_parser_actions.add_parser("version", help="Gets the current version of protolua.")
 
 	args_parser_create = args_parser_actions.add_parser("create", help="Create new protolua project.")
 	args_parser_create.add_argument("name")

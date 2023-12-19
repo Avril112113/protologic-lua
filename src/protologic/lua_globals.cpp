@@ -19,12 +19,6 @@ void lua_protologic_set_globals(lua_State* state) {
 	lua_pushnumber(state, const_get_spaceshipfuelconsumption());
 	lua_setglobal(state, "SPACESHIPFUELCONSUMPTION");
 
-	lua_pushnumber(state, const_get_missilethrust());
-	lua_setglobal(state, "MISSILETHRUST");
-
-	lua_pushnumber(state, const_get_missilefuelconsumption());
-	lua_setglobal(state, "MISSILEFUELCONSUMPTION");
-
 	lua_pushnumber(state, const_get_turretminelevation());
 	lua_setglobal(state, "TURRETMINELEVATION");
 

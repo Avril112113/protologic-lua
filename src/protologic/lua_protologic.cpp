@@ -32,18 +32,6 @@ static int lua_protologiclib_const_get_spaceshipfuelconsumption(lua_State* state
 	return 1;
 }
 
-static int lua_protologiclib_const_get_missilethrust(lua_State* state) {
-	float result = const_get_missilethrust();
-	lua_pushnumber(state, result);
-	return 1;
-}
-
-static int lua_protologiclib_const_get_missilefuelconsumption(lua_State* state) {
-	float result = const_get_missilefuelconsumption();
-	lua_pushnumber(state, result);
-	return 1;
-}
-
 static int lua_protologiclib_const_get_turretminelevation(lua_State* state) {
 	float result = const_get_turretminelevation();
 	lua_pushnumber(state, result);
@@ -787,8 +775,6 @@ static const struct luaL_Reg lua_protologiclib [] = {
 	{"const_get_fueldensity", lua_protologiclib_const_get_fueldensity},
 	{"const_get_spaceshipthrust", lua_protologiclib_const_get_spaceshipthrust},
 	{"const_get_spaceshipfuelconsumption", lua_protologiclib_const_get_spaceshipfuelconsumption},
-	{"const_get_missilethrust", lua_protologiclib_const_get_missilethrust},
-	{"const_get_missilefuelconsumption", lua_protologiclib_const_get_missilefuelconsumption},
 	{"const_get_turretminelevation", lua_protologiclib_const_get_turretminelevation},
 	{"const_get_turretmaxelevation", lua_protologiclib_const_get_turretmaxelevation},
 	{"const_get_turretelevationspeed", lua_protologiclib_const_get_turretelevationspeed},

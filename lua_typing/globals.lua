@@ -15,12 +15,6 @@ SPACESHIPTHRUST = nil
 SPACESHIPFUELCONSUMPTION = nil
 
 ---@type number
-MISSILETHRUST = nil
-
----@type number
-MISSILEFUELCONSUMPTION = nil
-
----@type number
 TURRETMINELEVATION = nil
 
 ---@type number

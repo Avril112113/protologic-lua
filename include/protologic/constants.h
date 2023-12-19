@@ -16,10 +16,6 @@ WASM_IMPORT("protologic", "const_get_spaceshipthrust", const_get_spaceshipthrust
 
 WASM_IMPORT("protologic", "const_get_spaceshipfuelconsumption", const_get_spaceshipfuelconsumption, float);
 
-WASM_IMPORT("protologic", "const_get_missilethrust", const_get_missilethrust, float);
-
-WASM_IMPORT("protologic", "const_get_missilefuelconsumption", const_get_missilefuelconsumption, float);
-
 WASM_IMPORT("protologic", "const_get_turretminelevation", const_get_turretminelevation, float);
 
 WASM_IMPORT("protologic", "const_get_turretmaxelevation", const_get_turretmaxelevation, float);

@@ -9,6 +9,7 @@
 lua_State* state;
 
 
+bool initialized = false;
 static void init() {
 	// This is run in wizer, which is outside of protologic.
 	// We have access to the real file system, to load all lua files ahead of time.
@@ -30,11 +31,17 @@ static void init() {
 	// After exiting here, we will be in the protologic environment.
 	// This is done here instead to save fuel on the first tick.
 	protolua_setup_api_pre(state);
+
+	initialized = true;
 }
 WIZER_INIT(init);
 
 
-extern "C" int main(int argc, char *argv[]) {}
+extern "C" int main(int argc, char *argv[]) {
+	// When in release mode, make sure the compiler knows init() is called.
+	// Otherwise, it gets very unhappy.
+	if (!initialized) init();
+}
 
 
 void _tick() {
@@ -64,6 +71,7 @@ void _tick() {
 	}
 	lua_pop(state, lua_gettop(state));  // Clear stack of any return values.
 }
+
 extern "C" void tick() {
 	RUN_JMP_SUPPORT_VOID(_tick());
 }

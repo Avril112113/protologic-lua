@@ -10,7 +10,7 @@ rm -f ./build/*.wasm
 rm -f ./build/*.wat
 
 echo \~ Building
-cmake --toolchain ${WASI_SDK_PATH}/share/cmake/wasi-sdk.cmake -Bbuild
+cmake --toolchain ${WASI_SDK_PATH}/share/cmake/wasi-sdk.cmake -Bbuild -DCMAKE_BUILD_TYPE=Release
 ( cd ./build && make )
 
 # Downloaded by protolua
